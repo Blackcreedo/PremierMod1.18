@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[37,)" 
+license="All rights reserved"
+
+[[mods]]
+modId="pm" 
+version="1.0.0" 
+displayName="Premier Mod"
+
+credits="Thanks for this example mod goes to Java" 
+authors="Blackcreed"
+# The description text for the mod (multi line!) (#mandatory)
+description=" Premier mod créer par Blackcreed"

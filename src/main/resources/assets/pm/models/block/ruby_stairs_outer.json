@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pm:block/ruby_block",
+    "top": "pm:block/ruby_block",
+    "side": "pm:block/ruby_block"
+  }
+}

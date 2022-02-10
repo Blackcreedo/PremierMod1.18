@@ -1,0 +1,21 @@
+{
+	"replace": false,
+	"values": [
+		"pm:titanium_ore",
+		"pm:titanium_block",
+		"pm:titanium_stairs",
+		"pm:titanium_slab",
+		"pm:titanium_wall",
+		"pm:titanium_door",
+		"pm:titanium_trapdoor",
+		"pm:titanium_pressure_plate",
+		"pm:titanium_button",
+		"pm:speedy_block",
+		"pm:ruby_ore",
+		"pm:ruby_block",
+		"pm:ruby_stairs",
+		"pm:ruby_slab",
+		"pm:ruby_wall",
+		"pm:firestone_block"
+	]
+}
