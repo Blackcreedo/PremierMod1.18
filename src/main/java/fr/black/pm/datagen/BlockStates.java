@@ -5,7 +5,8 @@ import fr.black.pm.block.ModBlocks;
 import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -20,32 +21,46 @@ public class BlockStates extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.TITANIUM_BLOCK.get());
-        simpleBlock(ModBlocks.TITANIUM_STAIRS.get());
-        simpleBlock(ModBlocks.TITANIUM_SLAB.get());
-        simpleBlock(ModBlocks.TITANIUM_WALL.get());
+        ResourceLocation titanium_block = new ResourceLocation("pm:block/titanium_block");
+        stairsBlock((StairBlock) ModBlocks.TITANIUM_STAIRS.get(), titanium_block);
+        slabBlock((SlabBlock) ModBlocks.TITANIUM_SLAB.get(), titanium_block, titanium_block);
+        wallBlock((WallBlock) ModBlocks.TITANIUM_WALL.get(), titanium_block);
         simpleBlock(ModBlocks.TITANIUM_ORE.get());
-        simpleBlock(ModBlocks.TITANIUM_DOOR.get());
-        simpleBlock(ModBlocks.TITANIUM_TRAPDOOR.get());
-        simpleBlock(ModBlocks.TITANIUM_PRESSURE_PLATE.get());
-        simpleBlock(ModBlocks.TITANIUM_BUTTON.get());
+        ResourceLocation titanium_door_bottom = new ResourceLocation("pm:block/titanium_door_bottom");
+        ResourceLocation titanium_door_top = new ResourceLocation("pm:block/titanium_door_top");
+        doorBlock((DoorBlock) ModBlocks.TITANIUM_DOOR.get(), titanium_door_bottom, titanium_door_top);
+        ResourceLocation titanium_trapdoor = new ResourceLocation("pm:block/titanium_trapdoor");
+        trapdoorBlock((TrapDoorBlock) ModBlocks.TITANIUM_TRAPDOOR.get(), titanium_trapdoor, true);
+        pressurePlateBlock((PressurePlateBlock) ModBlocks.TITANIUM_PRESSURE_PLATE.get(), titanium_block);
+        buttonBlock((ButtonBlock) ModBlocks.TITANIUM_BUTTON.get(), titanium_block);
         simpleBlock(ModBlocks.SPEEDY_BLOCK.get());
         simpleBlock(ModBlocks.RUBY_ORE.get());
         simpleBlock(ModBlocks.RUBY_BLOCK.get());
-        simpleBlock(ModBlocks.RUBY_STAIRS.get());
-        simpleBlock(ModBlocks.RUBY_SLAB.get());
-        simpleBlock(ModBlocks.RUBY_WALL.get());
+        ResourceLocation ruby_block = new ResourceLocation("pm:block/ruby_block");
+        stairsBlock((StairBlock) ModBlocks.RUBY_STAIRS.get(), ruby_block);
+        slabBlock((SlabBlock) ModBlocks.RUBY_SLAB.get(), ruby_block, ruby_block);
+        wallBlock((WallBlock) ModBlocks.RUBY_WALL.get(), ruby_block);
         simpleBlock(ModBlocks.FIRESTONE_BLOCK.get());
-        simpleBlock(ModBlocks.TEST_BLOCK.get());
-        simpleBlock(ModBlocks.TOMATO_PLANT.get());
-        simpleBlock(ModBlocks.PEPPER_PLANT.get());
+        //simpleBlock(ModBlocks.TEST_BLOCK.get());
+
+        //simpleBlock(ModBlocks.TOMATO_PLANT.get());
+        //simpleBlock(ModBlocks.PEPPER_PLANT.get());
         simpleBlock(ModBlocks.ORCHID.get());
-        simpleBlock(ModBlocks.REDWOOD_LOG.get());
-        simpleBlock(ModBlocks.REDWOOD_WOOD.get());
-        simpleBlock(ModBlocks.STRIPPED_REDWOOD_LOG.get());
-        simpleBlock(ModBlocks.STRIPPED_REDWOOD_WOOD.get());
+        logBlock((RotatedPillarBlock) ModBlocks.REDWOOD_LOG.get());
+        ResourceLocation redwood_log = new ResourceLocation("pm:block/redwood_log");
+        axisBlock((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD.get(), redwood_log, redwood_log);
+        logBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_LOG.get());
+        ResourceLocation stripped_redwood_log = new ResourceLocation("pm:block/stripped_redwood_log");
+        axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD.get(), stripped_redwood_log, stripped_redwood_log);
         simpleBlock(ModBlocks.REDWOOD_PLANKS.get());
         simpleBlock(ModBlocks.REDWOOD_LEAVES.get());
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get());
+        registerPowergen();
+    }
+
+    private void registerTestBlock(){
+        VariantBlockStateBuilder variant = getVariantBuilder(ModBlocks.TEST_BLOCK.get());
+        variant.addModels();
     }
 
     private void registerPowergen(){
@@ -82,10 +97,10 @@ public class BlockStates extends BlockStateProvider {
     private void createPowergenModel(Block block, BlockModelBuilder frame){
         BlockModelBuilder singleOff = models().getBuilder("block/powergen/singleoff")
                 .element().from(3,3,3).to(13,13,13).face(Direction.DOWN).texture("#single").end().end()
-                .texture("single", modLoc("block/powergen/single_off"));
+                .texture("single", modLoc("block/powergen_off"));
         BlockModelBuilder singleOn = models().getBuilder("block/powergen/singleon")
                 .element().from(3,3,3).to(13,13,13).face(Direction.DOWN).texture("#single").end().end()
-                .texture("single", modLoc("block/powergen/single_on"));
+                .texture("single", modLoc("block/powergen_on"));
 
         MultiPartBlockStateBuilder bld = getMultipartBuilder(block);
         bld.part().modelFile(frame).addModel();

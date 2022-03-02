@@ -16,14 +16,14 @@ public class DataGenerators {
         if(event.includeServer()){
             //generator.addProvider(new Recipes(generator));
             //generator.addProvider(new LootTables(generator));
-            GenBlockTags blockTags = new GenBlockTags(generator, event.getExistingFileHelper());
-            GenItemTags itemTags = new GenItemTags(generator,blockTags, event.getExistingFileHelper());
-            generator.addProvider(blockTags);
-            generator.addProvider(itemTags);
+            //GenBlockTags blockTags = new GenBlockTags(generator, event.getExistingFileHelper());
+            //GenItemTags itemTags = new GenItemTags(generator,blockTags, event.getExistingFileHelper());
+            //generator.addProvider(blockTags);
+            //generator.addProvider(itemTags);
         }
         if(event.includeClient()){
             generator.addProvider(new BlockStates(generator, event.getExistingFileHelper()));
-            generator.addProvider(new ItemModels(generator, event.getExistingFileHelper()));
+            //generator.addProvider(new ItemModels(generator, event.getExistingFileHelper()));
         }
     }
 
