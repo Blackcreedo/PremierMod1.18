@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import static net.minecraft.data.models.model.TextureMapping.cross;
+
 
 public class BlockStates extends BlockStateProvider {
 
@@ -48,7 +50,7 @@ public class BlockStates extends BlockStateProvider {
         registerPlantBlock(ModBlocks.TOMATO_PLANT.get(), "tomato");
         registerPlantBlock(ModBlocks.PEPPER_PLANT.get(), "pepper");
 
-        simpleBlock(ModBlocks.ORCHID.get());
+        simpleBlock(ModBlocks.ORCHID.get(), models().cross("block/orchid", new ResourceLocation("pm:block/orchid")));
         logBlock((RotatedPillarBlock) ModBlocks.REDWOOD_LOG.get());
         ResourceLocation redwood_log = new ResourceLocation("pm:block/redwood_log");
         axisBlock((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD.get(), redwood_log, redwood_log);
@@ -57,7 +59,7 @@ public class BlockStates extends BlockStateProvider {
         axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD.get(), stripped_redwood_log, stripped_redwood_log);
         simpleBlock(ModBlocks.REDWOOD_PLANKS.get());
         simpleBlock(ModBlocks.REDWOOD_LEAVES.get());
-        simpleBlock(ModBlocks.REDWOOD_SAPLING.get());
+        simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         registerPowergen();
     }
 

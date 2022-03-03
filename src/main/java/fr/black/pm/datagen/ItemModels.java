@@ -18,21 +18,21 @@ public class ItemModels extends ItemModelProvider {
         withExistingParent(ModBlocks.TITANIUM_BLOCK.get().getRegistryName().getPath(), modLoc("block/titanium_block"));
         withExistingParent(ModBlocks.TITANIUM_STAIRS.get().getRegistryName().getPath(), modLoc("block/titanium_stairs"));
         withExistingParent(ModBlocks.TITANIUM_SLAB.get().getRegistryName().getPath(), modLoc("block/titanium_slab"));
-        withExistingParent(ModBlocks.TITANIUM_WALL.get().getRegistryName().getPath(), modLoc("block/titanium_wall"));
+        //withExistingParent(ModBlocks.TITANIUM_WALL.get().getRegistryName().getPath(), modLoc("block/titanium_wall_inventory"));
         withExistingParent(ModBlocks.TITANIUM_ORE.get().getRegistryName().getPath(), modLoc("block/titanium_ore"));
-        withExistingParent(ModBlocks.TITANIUM_TRAPDOOR.get().getRegistryName().getPath(), modLoc("block/titanium_trapdoor"));
+        withExistingParent(ModBlocks.TITANIUM_TRAPDOOR.get().getRegistryName().getPath(), modLoc("block/titanium_trapdoor_bottom"));
         withExistingParent(ModBlocks.TITANIUM_PRESSURE_PLATE.get().getRegistryName().getPath(), modLoc("block/titanium_pressure_plate"));
-        withExistingParent(ModBlocks.TITANIUM_BUTTON.get().getRegistryName().getPath(), modLoc("block/titanium_button"));
+        //withExistingParent(ModBlocks.TITANIUM_BUTTON.get().getRegistryName().getPath(), modLoc("block/titanium_button_inventory"));
         withExistingParent(ModBlocks.SPEEDY_BLOCK.get().getRegistryName().getPath(), modLoc("block/speedy_block"));
         withExistingParent(ModBlocks.RUBY_ORE.get().getRegistryName().getPath(), modLoc("block/ruby_ore"));
         withExistingParent(ModBlocks.RUBY_BLOCK.get().getRegistryName().getPath(), modLoc("block/ruby_block"));
         withExistingParent(ModBlocks.RUBY_STAIRS.get().getRegistryName().getPath(), modLoc("block/ruby_stairs"));
         withExistingParent(ModBlocks.RUBY_SLAB.get().getRegistryName().getPath(), modLoc("block/ruby_slab"));
-        withExistingParent(ModBlocks.RUBY_WALL.get().getRegistryName().getPath(), modLoc("block/ruby_wall"));
+        withExistingParent(ModBlocks.RUBY_WALL.get().getRegistryName().getPath(), modLoc("block/ruby_wall_post"));
         withExistingParent(ModBlocks.FIRESTONE_BLOCK.get().getRegistryName().getPath(), modLoc("block/firestone_block"));
-        withExistingParent(ModBlocks.TEST_BLOCK.get().getRegistryName().getPath(), modLoc("block/test_block"));
-        withExistingParent(ModBlocks.TOMATO_PLANT.get().getRegistryName().getPath(), modLoc("block/tomato_plant"));
-        withExistingParent(ModBlocks.PEPPER_PLANT.get().getRegistryName().getPath(), modLoc("block/pepper_plant"));
+        withExistingParent(ModBlocks.TEST_BLOCK.get().getRegistryName().getPath(), modLoc("block/test_block_normal"));
+        //withExistingParent(ModBlocks.TOMATO_PLANT.get().getRegistryName().getPath(), modLoc("block/tomato_plant"));
+        //withExistingParent(ModBlocks.PEPPER_PLANT.get().getRegistryName().getPath(), modLoc("block/pepper_plant"));
         withExistingParent(ModBlocks.ORCHID.get().getRegistryName().getPath(), modLoc("block/orchid"));
         withExistingParent(ModBlocks.REDWOOD_LOG.get().getRegistryName().getPath(), modLoc("block/redwood_log"));
         withExistingParent(ModBlocks.REDWOOD_WOOD.get().getRegistryName().getPath(), modLoc("block/redwood_wood"));
@@ -49,6 +49,8 @@ public class ItemModels extends ItemModelProvider {
         singleTexture(ModItems.BAGUETTE_BITE_2.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/baguette_bite_2"));
         singleTexture(ModItems.COAL_COKE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/coal_coke"));
         singleTexture(ModItems.FIRESTONE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/firestone"));
+        singleTexture(ModItems.TOMATO.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/tomato"));
+        singleTexture(ModItems.TOMATO_SEEDS.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/tomato_seeds"));
         singleTexture(ModItems.PEPPER.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/pepper"));
         singleTexture(ModItems.PEPPER_SEEDS.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/pepper_seeds"));
         singleTexture(ModItems.RAW_TITANIUM.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/raw_titanium"));
@@ -61,7 +63,7 @@ public class ItemModels extends ItemModelProvider {
         singleTexture(ModItems.RUBY_HORSE_ARMOR.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_horse_armor"));
         singleTexture(ModItems.RUBY_LEGGINGS.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_leggings"));
         singleTexture(ModItems.RUBY_PICKAXE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_pickaxe"));
-        singleTexture(ModItems.RUBY_SHOVEL.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_showel"));
+        singleTexture(ModItems.RUBY_SHOVEL.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_shovel"));
         singleTexture(ModItems.RUBY_SWORD.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/ruby_sword"));
         singleTexture(ModItems.SMART_BLOW_TORCH.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/smart_blow_torch"));
         singleTexture(ModItems.TITANIUM_AXE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_axe"));
@@ -71,17 +73,16 @@ public class ItemModels extends ItemModelProvider {
         singleTexture(ModItems.TITANIUM_HELMET.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_helmet"));
         singleTexture(ModItems.TITANIUM_HOE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_hoe"));
         singleTexture(ModItems.TITANIUM_HORSE_ARMOR.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_horse_armor"));
-        singleTexture(ModItems.TITANIUM_INGOT.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium"));
+        singleTexture(ModItems.TITANIUM_INGOT.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_ingot"));
         singleTexture(ModItems.TITANIUM_LEGGINGS.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_leggings"));
         singleTexture(ModItems.TITANIUM_NUGGET.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_nugget"));
         singleTexture(ModItems.TITANIUM_PICKAXE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_pickaxe"));
-        singleTexture(ModItems.TITANIUM_SHOVEL.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_showel"));
+        singleTexture(ModItems.TITANIUM_SHOVEL.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_shovel"));
         singleTexture(ModItems.TITANIUM_SWORD.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/titanium_sword"));
         singleTexture(ModItems.LIGHTNING_STRIKE_CURSE1.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/red_paper"));
         singleTexture(ModItems.LIGHTNING_STRIKE_CURSE2.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/red_paper"));
         singleTexture(ModItems.LIGHTNING_STRIKE_CURSE3.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/red_paper"));
         singleTexture(ModItems.LIGHTNING_STRIKE_CURSE4.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/red_paper"));
         singleTexture(ModItems.LIGHTNING_STRIKE_CURSE5.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/red_paper"));
-
     }
 }

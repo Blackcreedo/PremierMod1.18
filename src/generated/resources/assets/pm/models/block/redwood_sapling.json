@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cross",
   "textures": {
-    "all": "pm:block/redwood_sapling"
+    "cross": "pm:block/redwood_sapling"
   }
 }
