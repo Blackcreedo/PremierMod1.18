@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "clicked=false": {
+      "model": "pm:block/test_block_normal"
+    },
+    "clicked=true": {
+      "model": "pm:block/test_block_clicked"
+    }
+  }
+}
