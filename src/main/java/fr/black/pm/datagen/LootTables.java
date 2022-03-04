@@ -2,6 +2,7 @@ package fr.black.pm.datagen;
 
 import fr.black.pm.block.ModBlocks;
 import fr.black.pm.item.ModItems;
+import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
@@ -11,19 +12,13 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.registries.RegistryObject;
 
-public class LootTables extends BaseLootTableProvider {
+public class LootTables extends BlockLoot {
 
-    public LootTables(DataGenerator dataGeneratorIn) {
-        super(dataGeneratorIn);
-    }
 
     @Override
     protected void addTables() {
-    }
 
-}
-/*sa reste la pour le moment
-* this.add(ModBlocks.TITANIUM_SLAB.get(), (block) -> {
+        this.add(ModBlocks.TITANIUM_SLAB.get(), (block) -> {
             return createSlabItemTable(ModBlocks.TITANIUM_SLAB.get());
         });
         this.add(ModBlocks.RUBY_SLAB.get(), (block) -> {
@@ -57,6 +52,14 @@ public class LootTables extends BaseLootTableProvider {
         this.dropSelf(ModBlocks.REDWOOD_PLANKS.get());
         this.dropSelf(ModBlocks.REDWOOD_LEAVES.get());
         this.dropSelf(ModBlocks.REDWOOD_SAPLING.get());
+        this.dropSelf(ModTileEntities.POWERGEN.get());
+        this.dropSelf(ModTileEntities.LIGHTNING_CHANNELER.get());
+
+
+        this.add(ModBlocks.TEST_BLOCK.get(), noDrop());
+        this.add(ModBlocks.TOMATO_PLANT.get(), noDrop());
+        this.add(ModBlocks.PEPPER_PLANT.get(), noDrop());
+/*
         LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(ModBlocks.TOMATO_PLANT.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7));
@@ -65,5 +68,11 @@ public class LootTables extends BaseLootTableProvider {
                 .hasBlockStateProperties(ModBlocks.PEPPER_PLANT.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7));
         this.createCropDrops(ModBlocks.PEPPER_PLANT.get(), ModItems.PEPPER.get(), ModItems.PEPPER_SEEDS.get(), lootitemcondition$builder1);
-        this.add(ModBlocks.TEST_BLOCK.get(), noDrop());
-* */
+    */
+    }
+
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+        return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+    }
+}

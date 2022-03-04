@@ -15,7 +15,7 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         if(event.includeServer()){
             generator.addProvider(new Recipes(generator));
-            //generator.addProvider(new LootTables(generator));
+            generator.addProvider(new ModLootTableProvider(generator));
             GenBlockTags blockTags = new GenBlockTags(generator, event.getExistingFileHelper());
             GenItemTags itemTags = new GenItemTags(generator,blockTags, event.getExistingFileHelper());
             generator.addProvider(blockTags);
