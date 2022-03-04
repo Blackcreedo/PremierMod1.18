@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class ModCreativeModeTab {
 
-	public static final CreativeModeTab PREMIER_MOD_TAB = new CreativeModeTab("premierModTab") {
+	public static final CreativeModeTab PREMIER_MOD_TAB = new CreativeModeTab("premier_mod_tab") {
 		
 		@Override
 		public ItemStack makeIcon() {

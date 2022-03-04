@@ -8,6 +8,8 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
@@ -25,26 +27,38 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> finishedRecipeConsumer) {
 
         blocks(finishedRecipeConsumer, ModBlocks.TITANIUM_BLOCK.get(), ModItems.TITANIUM_INGOT.get());
-        stairs(finishedRecipeConsumer, ModBlocks.TITANIUM_STAIRS.get(), ModItems.TITANIUM_INGOT.get());
-        slab(finishedRecipeConsumer, ModBlocks.TITANIUM_SLAB.get(), ModItems.TITANIUM_INGOT.get());
-        wall(finishedRecipeConsumer, ModBlocks.TITANIUM_WALL.get(), ModItems.TITANIUM_INGOT.get());
+/*
+        ShapedRecipeBuilder.shaped(ModBlocks.TITANIUM_STAIRS.get())
+                .define('#', ModItems.TITANIUM_INGOT.get())
+                .pattern("#  ")
+                .pattern("## ")
+                .pattern("###").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
+                .group(name(ModBlocks.TITANIUM_STAIRS.get())).save(finishedRecipeConsumer);
+
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ModBlocks.TITANIUM_BLOCK.get()), ModBlocks.TITANIUM_STAIRS.get(), 1)
+                .unlockedBy("has_material", has(ModBlocks.TITANIUM_BLOCK.get())).group(name(ModBlocks.TITANIUM_STAIRS.get())).save(finishedRecipeConsumer);
+
+*/
+        stairs(finishedRecipeConsumer, ModBlocks.TITANIUM_STAIRS.get(), ModItems.TITANIUM_INGOT.get(), ModBlocks.TITANIUM_BLOCK.get(), 1);
+        slab(finishedRecipeConsumer, ModBlocks.TITANIUM_SLAB.get(), ModItems.TITANIUM_INGOT.get(), ModBlocks.TITANIUM_BLOCK.get(), 1);
+        walls(finishedRecipeConsumer, ModBlocks.TITANIUM_WALL.get(), ModItems.TITANIUM_INGOT.get(), ModBlocks.TITANIUM_BLOCK.get(), 1);
 
         ShapedRecipeBuilder.shaped(ModBlocks.TITANIUM_DOOR.get())
                 .define('T', ModItems.TITANIUM_INGOT.get())
-                .pattern("TT")
-                .pattern("TT")
-                .pattern("TT").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
+                .pattern("TT ")
+                .pattern("TT ")
+                .pattern("TT ").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
                 .save(finishedRecipeConsumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.TITANIUM_TRAPDOOR.get())
                 .define('T', ModItems.TITANIUM_INGOT.get())
-                .pattern("TT")
-                .pattern("TT").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
+                .pattern("TT ")
+                .pattern("TT ").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
                 .save(finishedRecipeConsumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.TITANIUM_PRESSURE_PLATE.get())
                 .define('T', ModItems.TITANIUM_INGOT.get())
-                .pattern("TT").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
+                .pattern("TT ").unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get()))
                 .save(finishedRecipeConsumer);
 
         ShapelessRecipeBuilder.shapeless(ModBlocks.TITANIUM_BUTTON.get())
@@ -53,9 +67,9 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
                 .save(finishedRecipeConsumer);;
 
         blocks(finishedRecipeConsumer, ModBlocks.RUBY_BLOCK.get(), ModItems.RUBY.get());
-        stairs(finishedRecipeConsumer, ModBlocks.RUBY_STAIRS.get(), ModItems.RUBY.get());
-        slab(finishedRecipeConsumer, ModBlocks.RUBY_SLAB.get(), ModItems.RUBY.get());
-        wall(finishedRecipeConsumer, ModBlocks.RUBY_WALL.get(), ModItems.RUBY.get());
+        //stairs(finishedRecipeConsumer, ModBlocks.RUBY_STAIRS.get(), ModItems.RUBY.get(), ModBlocks.RUBY_BLOCK.get(), 1);
+        slab(finishedRecipeConsumer, ModBlocks.RUBY_SLAB.get(), ModItems.RUBY.get(), ModBlocks.RUBY_BLOCK.get(), 1);
+        walls(finishedRecipeConsumer, ModBlocks.RUBY_WALL.get(), ModItems.RUBY.get(), ModBlocks.RUBY_BLOCK.get(), 1);
         blocks(finishedRecipeConsumer, ModBlocks.FIRESTONE_BLOCK.get(), ModItems.FIRESTONE.get());
         planksFromLog(finishedRecipeConsumer, ModBlocks.REDWOOD_PLANKS.get(), ItemTags.ACACIA_LOGS);
         woodFromLogs(finishedRecipeConsumer, ModBlocks.REDWOOD_WOOD.get(), ModBlocks.REDWOOD_LOG.get());
@@ -71,6 +85,11 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
                 .unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get())).save(finishedRecipeConsumer);
     }
 
+    private static String name(ItemLike craft){
+        String name = craft.asItem().toString();
+        System.out.println("######################################################"+name);
+        return name;
+    }
 
     private static void blocks(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material) {
         ShapedRecipeBuilder.shaped(craft)
@@ -81,37 +100,37 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
                 .save(finishedRecipeConsumer);
     }
 
-    private static void stairs(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material) {
+    private static void stairs(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material, ItemLike blockMaterial, int amount) {
         ShapedRecipeBuilder.shaped(craft)
                 .define('#', material)
-                .pattern("#")
-                .pattern("##")
+                .pattern("#  ")
+                .pattern("## ")
                 .pattern("###").unlockedBy("has_material", has(material))
-                .save(finishedRecipeConsumer);
+                .group(name(craft)).save(finishedRecipeConsumer);
 
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), craft)
-                .unlockedBy("has_material", has(material)).save(finishedRecipeConsumer);
+        //SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockMaterial), craft, amount)
+        //        .unlockedBy("has_material", has(blockMaterial)).group(name(craft)).save(finishedRecipeConsumer);
     }
 
-    private static void slab(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material) {
+    private static void slab(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material, ItemLike blockMaterial, int amount) {
         ShapedRecipeBuilder.shaped(craft)
                 .define('#', material)
                 .pattern("###").unlockedBy("has_material", has(material))
-                .save(finishedRecipeConsumer);
+                .group(name(craft)).save(finishedRecipeConsumer);
 
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), craft)
-                .unlockedBy("has_material", has(material)).save(finishedRecipeConsumer);
+        //SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockMaterial), craft, amount)
+        //        .unlockedBy("has_material", has(blockMaterial)).group(name(craft)).save(finishedRecipeConsumer);
     }
 
-    private static void Walls(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material) {
+    private static void walls(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike craft, ItemLike material, ItemLike blockMaterial, int amount) {
         ShapedRecipeBuilder.shaped(craft)
                 .define('#', material)
                 .pattern("###")
                 .pattern("###").unlockedBy("has_material", has(material))
-                .save(finishedRecipeConsumer);
+                .group(name(craft)).save(finishedRecipeConsumer);
 
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), craft)
-                .unlockedBy("has_material", has(material)).save(finishedRecipeConsumer);
+        //SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockMaterial), craft)
+        //        .unlockedBy("has_material", has(blockMaterial)).group(name(craft)).save(finishedRecipeConsumer);
     }
 
     private static void planksFromLog(Consumer<FinishedRecipe> finishedRecipeConsumer, ItemLike itemLike, Tag<Item> itemTag) {
