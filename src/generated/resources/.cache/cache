@@ -61,6 +61,7 @@ dbda7eeac6d0a2163a2e01e93d7a6b38d82065c6 assets/pm/models/block/ruby_slab.json
 97e69f27c9368cb171879602e8229a10dd0eebdb assets/pm/models/block/ruby_stairs.json
 87a0c7065bb73fa0058a4f57ee92047bbaf0c391 assets/pm/models/block/ruby_stairs_inner.json
 b8a82865bec053b7aaae69325b1be29d42694277 assets/pm/models/block/ruby_stairs_outer.json
+3c5f4010b438f5963c565cc0a2e9a5c4704c1c1c assets/pm/models/block/ruby_wall_inventory.json
 ef1f1405ab47ba5b52daf241b99ce3e32d299146 assets/pm/models/block/ruby_wall_post.json
 599c2937e04610d74649895c26fe9d4c7f12a153 assets/pm/models/block/ruby_wall_side.json
 37ea7ba43bf0d6bdadb716f30fa9345f8a697d0f assets/pm/models/block/ruby_wall_side_tall.json
@@ -73,6 +74,7 @@ bad6d98d8f4bec8aa9b84ec7b428e7f13b898bbe assets/pm/models/block/test_block_click
 97a16c0503229babfba0631fb5d5c767dc99b6ed assets/pm/models/block/test_block_normal.json
 83c1709786c23dbd13f2766263693ac62b36c450 assets/pm/models/block/titanium_block.json
 81fcdb114fd1d85884884c537be4f2e5a3a80d04 assets/pm/models/block/titanium_button.json
+022b3693dc398e0337f3131ec4ef0bc6902850a7 assets/pm/models/block/titanium_button_inventory.json
 d1f1acc16b372232e2a203486ee6b17e779aee77 assets/pm/models/block/titanium_button_pressed.json
 09be332dd701d337c5b3b0a5f8c3e10f7a33f63c assets/pm/models/block/titanium_door_bottom.json
 6af84759aeca756185235aedd52d7cdf0d8e443f assets/pm/models/block/titanium_door_bottom_hinge.json
@@ -89,6 +91,7 @@ dc9c31fb031d991f363e294765645afa508576e6 assets/pm/models/block/titanium_stairs_
 eb69da33086d0907fb189f345f811094e38697e0 assets/pm/models/block/titanium_trapdoor_bottom.json
 ea2047d8951294ef9b44c950a57af566ccecb60b assets/pm/models/block/titanium_trapdoor_open.json
 218764849dfb0075e664636f079dca195af2705f assets/pm/models/block/titanium_trapdoor_top.json
+3f3c6a83407cad246c8811047a96e78068d56ff5 assets/pm/models/block/titanium_wall_inventory.json
 eb9f9467e9e2cb6f6f2a52011bd0f1ae4a9a5e14 assets/pm/models/block/titanium_wall_post.json
 6d37ff4494054bd26fd267f75896208022d4edd0 assets/pm/models/block/titanium_wall_side.json
 1ecc554e6d1e5ec372b3e2a4be6e14c09ef77fe0 assets/pm/models/block/titanium_wall_side_tall.json
@@ -128,7 +131,7 @@ de76650f876d4837f5054ddfccfb3744bded95dd assets/pm/models/item/ruby_leggings.jso
 ad4217f611193e11a2e9bb0217fc0243ef0fda67 assets/pm/models/item/ruby_slab.json
 cb951ba926f8854e76d283e5b9fae64146176a7c assets/pm/models/item/ruby_stairs.json
 ecf1fa20bac720e3ad63030ffc7d9872db13fd0f assets/pm/models/item/ruby_sword.json
-da12c76d9eaf74196736a86ee10162b94649ca3c assets/pm/models/item/ruby_wall.json
+2b1f95ad35458fbe719a8a8f678a62774a3c7857 assets/pm/models/item/ruby_wall.json
 2477e294b8aef7c4b546d86d740b8eb283fe6b4e assets/pm/models/item/smart_blow_torch.json
 0f9efb555ab5a25bfe33bfc03d991a75b302f186 assets/pm/models/item/speedy_block.json
 0f9b6ac6dd27186f9552361116f8881f29571165 assets/pm/models/item/stripped_redwood_log.json
@@ -137,6 +140,7 @@ b0ae064a0236f4a05748d412956519fc3cdf2fcc assets/pm/models/item/stripped_redwood_
 8b97ec50c8f49a3b46b4063b28ce8646eb5084f4 assets/pm/models/item/titanium_axe.json
 cfb4142afe25b2d4f777d8bf6ef0ba9a42d87e21 assets/pm/models/item/titanium_block.json
 002db0a9bb6612bf33a41431dbecdb427f5827b1 assets/pm/models/item/titanium_boots.json
+790a9c3c5cdbce92a28c79a5262e52ab3d3c9ed1 assets/pm/models/item/titanium_button.json
 1b36b5de9438883ffa8e632ef293de9831534089 assets/pm/models/item/titanium_chestplate.json
 ad65afa09a42bcbe3fe358bf060da2999ac741f9 assets/pm/models/item/titanium_door.json
 2e4f9d134562175e3053d56af0f64bafee1283f5 assets/pm/models/item/titanium_helmet.json
@@ -153,5 +157,6 @@ f17c22194fea1de959c17fe2fb2bf0eb53fc66be assets/pm/models/item/titanium_slab.jso
 b0c496df5b53dbe84cd39834caf1c907ed0355df assets/pm/models/item/titanium_stairs.json
 c89e4caacc2e9666d9e59f19bf73342d958858c8 assets/pm/models/item/titanium_sword.json
 03ebaf4b907661b9349b566d179ce704e72085d0 assets/pm/models/item/titanium_trapdoor.json
+8ff215ea40c49f2a472d7797d499f7e2ad2e3340 assets/pm/models/item/titanium_wall.json
 05e4792d8e0e1a5993f18bae08cca26cd5e14633 assets/pm/models/item/tomato.json
 2acc9c461a61ca54357cfa4d45cf2f7ef9041622 assets/pm/models/item/tomato_seeds.json

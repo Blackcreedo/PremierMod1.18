@@ -27,7 +27,7 @@ public class BlockStates extends BlockStateProvider {
         ResourceLocation titanium_block = new ResourceLocation("pm:block/titanium_block");
         stairsBlock((StairBlock) ModBlocks.TITANIUM_STAIRS.get(), titanium_block);
         slabBlock((SlabBlock) ModBlocks.TITANIUM_SLAB.get(), titanium_block, titanium_block);
-        wallBlock((WallBlock) ModBlocks.TITANIUM_WALL.get(), titanium_block);
+        registerWall((WallBlock) ModBlocks.TITANIUM_WALL.get(), titanium_block, "titanium_wall");
         simpleBlock(ModBlocks.TITANIUM_ORE.get());
         ResourceLocation titanium_door_bottom = new ResourceLocation("pm:block/titanium_door_bottom");
         ResourceLocation titanium_door_top = new ResourceLocation("pm:block/titanium_door_top");
@@ -35,14 +35,14 @@ public class BlockStates extends BlockStateProvider {
         ResourceLocation titanium_trapdoor = new ResourceLocation("pm:block/titanium_trapdoor");
         trapdoorBlock((TrapDoorBlock) ModBlocks.TITANIUM_TRAPDOOR.get(), titanium_trapdoor, true);
         pressurePlateBlock((PressurePlateBlock) ModBlocks.TITANIUM_PRESSURE_PLATE.get(), titanium_block);
-        buttonBlock((ButtonBlock) ModBlocks.TITANIUM_BUTTON.get(), titanium_block);
+        registerButton((ButtonBlock) ModBlocks.TITANIUM_BUTTON.get(), titanium_block, "titanium_button");
         simpleBlock(ModBlocks.SPEEDY_BLOCK.get());
         simpleBlock(ModBlocks.RUBY_ORE.get());
         simpleBlock(ModBlocks.RUBY_BLOCK.get());
         ResourceLocation ruby_block = new ResourceLocation("pm:block/ruby_block");
         stairsBlock((StairBlock) ModBlocks.RUBY_STAIRS.get(), ruby_block);
         slabBlock((SlabBlock) ModBlocks.RUBY_SLAB.get(), ruby_block, ruby_block);
-        wallBlock((WallBlock) ModBlocks.RUBY_WALL.get(), ruby_block);
+        registerWall((WallBlock) ModBlocks.RUBY_WALL.get(), ruby_block, "ruby_wall");
         simpleBlock(ModBlocks.FIRESTONE_BLOCK.get());
 
         registerTestBlock();
@@ -61,6 +61,21 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_LEAVES.get());
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         registerPowergen();
+    }
+
+    private void registerButton(ButtonBlock block, ResourceLocation texture, String name){
+        //register block
+        buttonBlock(block, texture);
+        //creating wall_inventory file
+        models().buttonInventory(name + "_inventory", texture);
+    }
+
+
+    private void registerWall(WallBlock block, ResourceLocation texture, String name){
+        //register block
+        wallBlock( block, texture);
+        //creating wall_inventory file
+        models().wallInventory(name + "_inventory", texture);
     }
 
     private void registerTestBlock(){
