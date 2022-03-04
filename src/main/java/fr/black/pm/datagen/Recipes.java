@@ -83,6 +83,13 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
                 .pattern("x#x")
                 .pattern("#x#")
                 .unlockedBy("has_material", has(ModItems.TITANIUM_INGOT.get())).save(finishedRecipeConsumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.BAGUETTE.get())
+                .define('#', Items.BREAD)
+                .pattern("  #")
+                .pattern(" # ")
+                .pattern("#  ")
+                .unlockedBy("has_material", has(Items.BREAD)).save(finishedRecipeConsumer);
     }
 
     private static String name(ItemLike craft){

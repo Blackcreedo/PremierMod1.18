@@ -60,6 +60,7 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_PLANKS.get());
         simpleBlock(ModBlocks.REDWOOD_LEAVES.get());
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
+        simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
         registerPowergen();
     }
 
