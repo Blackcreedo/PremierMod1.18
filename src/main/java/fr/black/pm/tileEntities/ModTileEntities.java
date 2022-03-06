@@ -7,6 +7,8 @@ import fr.black.pm.item.ModItems;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlock;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlockEntity;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerContainer;
+import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlock;
+import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlockEntity;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlock;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import fr.black.pm.tileEntities.custom.powergen.PowergenContainer;
@@ -37,6 +39,10 @@ public class ModTileEntities {
             BLOCK_ENTITIES.register("powergen", () -> BlockEntityType.Builder.of(PowergenBlockEntity::new, POWERGEN.get()).build(null));
     public static final RegistryObject<MenuType<PowergenContainer>> POWERGEN_CONTAINER =
             CONTAINERS.register("powergen", () -> IForgeMenuType.create((windowId, inv, data) -> new PowergenContainer(windowId,data.readBlockPos(), inv, inv.player)));
+
+    public static final RegistryObject<OreGeneratorBlock> ORE_GENERATOR = registerBlock("ore_generator", OreGeneratorBlock::new);
+    public static final RegistryObject<BlockEntityType<OreGeneratorBlockEntity>> ORE_GENERATOR_BLOCKENTITY =
+            BLOCK_ENTITIES.register("ore_generator", () -> BlockEntityType.Builder.of(OreGeneratorBlockEntity::new, ORE_GENERATOR.get()).build(null));
 
 
     public static final RegistryObject<Block> LIGHTNING_CHANNELER = registerBlock("lightning_channeler", LightningChannelerBlock::new);

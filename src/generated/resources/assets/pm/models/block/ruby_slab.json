@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "pm:block/ruby_block",
-    "bottom": "pm:block/ruby_block",
-    "top": "pm:block/ruby_block"
-  }
-}

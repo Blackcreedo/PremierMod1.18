@@ -70,6 +70,7 @@
 	"block.pm.redwood_sapling": "Redwood Sapling",
 	"block.pm.lightning_channeler": "Lightning Channeler",
 	"block.pm.powergen": "Power Generator",
+	"block.pm.ore_generator": "Ore Generator",
 
 	
 	
@@ -87,6 +88,8 @@
 
 	"message.powergen": "Power generator generating %s per tick!",
 	"screen.powergen": "Power generator",
+
+	"message.oregen": "Generate Ore when powered",
 
 	"message.lightning_channeler": "Generate Firestone with Ruby",
 	"screen.lightning_channeler": "Lightning Channeler"
