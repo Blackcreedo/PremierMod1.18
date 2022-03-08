@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import static fr.black.pm.client.GeneratorModelLoader.GENERATOR_LOADER;
+import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.GENERATOR_LOADER;
 
 
 public class BlockStates extends BlockStateProvider {
@@ -61,6 +61,7 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
         registerPowergen();
+        registerOreGenerator();
     }
 
     private void registerButton(ButtonBlock block, ResourceLocation texture, String name){

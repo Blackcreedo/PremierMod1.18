@@ -54,6 +54,7 @@ public class LootTables extends BlockLoot {
         this.dropSelf(ModBlocks.REDWOOD_SAPLING.get());
         this.dropSelf(ModTileEntities.POWERGEN.get());
         this.dropSelf(ModTileEntities.LIGHTNING_CHANNELER.get());
+        this.dropSelf(ModTileEntities.ORE_GENERATOR.get());
 
 
         this.add(ModBlocks.TEST_BLOCK.get(), noDrop());

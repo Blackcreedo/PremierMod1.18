@@ -134,7 +134,7 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         if(collectingBox==null){
             collectingBox = new AABB(getBlockPos()).inflate(1);
         }
-
+        // Items on the ground are ItemEntity
         // get all entities
         List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class /*of type ItemEntity*/, collectingBox /*in the 3x3 box*/,
                 itemEntity ->{
@@ -323,6 +323,7 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         tag.put("Energy", energy.serializeNBT());
         CompoundTag infoTag = tag.getCompound("Info");
         infoTag.putInt("Generating", generatingCounter);
+        tag.put("Info", infoTag);
     }
 
     private void saveClientData(CompoundTag tag) {

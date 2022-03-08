@@ -34,7 +34,8 @@ public class GenBlockTags extends BlockTagsProvider {
                 .add(ModBlocks.RUBY_SLAB.get())
                 .add(ModBlocks.RUBY_WALL.get())
                 .add(ModBlocks.FIRESTONE_BLOCK.get())
-                .add(ModTileEntities.POWERGEN.get());
+                .add(ModTileEntities.POWERGEN.get())
+                .add(ModTileEntities.ORE_GENERATOR.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.TITANIUM_ORE.get())
@@ -51,7 +52,8 @@ public class GenBlockTags extends BlockTagsProvider {
                 .add(ModBlocks.RUBY_SLAB.get())
                 .add(ModBlocks.RUBY_WALL.get())
                 .add(ModBlocks.FIRESTONE_BLOCK.get())
-                .add(ModTileEntities.POWERGEN.get());
+                .add(ModTileEntities.POWERGEN.get())
+                .add(ModTileEntities.ORE_GENERATOR.get());
 
         tag(Tags.Blocks.ORES)
                 .add(ModBlocks.TITANIUM_ORE.get())

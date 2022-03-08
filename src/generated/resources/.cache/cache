@@ -1,6 +1,7 @@
 0c8dde125be8b00f73ecefb16301e86923612862 assets/pm/blockstates/firestone_block.json
 b144ba7c70e23774c717211065696221d3b7a52c assets/pm/blockstates/lightning_channeler.json
 51ee986c114310b825ca728ec20997a5634d7c5c assets/pm/blockstates/orchid.json
+edfbe63ae36b605105d6a2ce326d436eb0e6eed7 assets/pm/blockstates/ore_generator.json
 7f9266e13729eeb56b2a5fbb3ecf3ec17ae04f61 assets/pm/blockstates/pepper_plant.json
 65d25a21e486b07099afef01b166587a603e3004 assets/pm/blockstates/powergen.json
 bc5f8f3981cd0c1194c5fd12e8cb82e2e4a051d6 assets/pm/blockstates/redwood_leaves.json
@@ -46,6 +47,7 @@ fe79c27f5c6c60b426b98666c7e70a7201fbac4d assets/pm/models/block/crop/tomato/toma
 a4f56c201efcd1398c3a0de5fec1fb4a57d3ec00 assets/pm/models/block/firestone_block.json
 cfca14426ddb6ecd1313521d33ecae5f1eb47077 assets/pm/models/block/lightning_channeler.json
 6f3b586e19b40981e29494f0b51e3a7d2d87c2f9 assets/pm/models/block/orchid.json
+3ddd994b7c134bb5b4ef9ba849e0f155e48a2f81 assets/pm/models/block/ore_generator.json
 66364aeecc31d690efad4736bb7d70d8e28f6236 assets/pm/models/block/powergen/main.json
 df038d51f2898b31c960b158cace5146f7438416 assets/pm/models/block/powergen/singleoff.json
 56d997c76d8e00fa09fa26c38b3d0385544be73e assets/pm/models/block/powergen/singleon.json
@@ -110,6 +112,7 @@ df5d68c7c755f1d9e288fe2f69ba6c6ad63f33c7 assets/pm/models/item/lightning_channel
 1baaa4164ce83fd54e88add5fa290510cfbbd2c5 assets/pm/models/item/lightning_strike_curse4.json
 1baaa4164ce83fd54e88add5fa290510cfbbd2c5 assets/pm/models/item/lightning_strike_curse5.json
 3ffd0a46421c963a742a82c284c2078a31096de3 assets/pm/models/item/orchid.json
+208d124bf940fa1c3a3cc1e5ea83be415835772f assets/pm/models/item/ore_generator.json
 37321ea50882660f959424b7359c21cddd7e4be3 assets/pm/models/item/pepper.json
 749a8b3f7d4b9f4ddbfb6bf7f2a69640c1e710d5 assets/pm/models/item/pepper_seeds.json
 147aefb6e2ba22c0ccd0d247e19f7c5dc2c88bd9 assets/pm/models/item/powergen.json
@@ -167,8 +170,8 @@ c89e4caacc2e9666d9e59f19bf73342d958858c8 assets/pm/models/item/titanium_sword.js
 312dae59d6b98d81d420835abc75d8e44b7cb4ea data/forge/tags/items/ores.json
 0e8833bad3889c77905ee18e60490c39d82be8a9 data/minecraft/tags/blocks/logs.json
 a368ab63015d9d6386ecaa5dd3bac3e5c5a52cf5 data/minecraft/tags/blocks/mineable/axe.json
-ecea8a0fce4742a9b45c629ed728e3a6875753fc data/minecraft/tags/blocks/mineable/pickaxe.json
-35f2b91630ce72cfecf8a652aae0c699ff7097a3 data/minecraft/tags/blocks/needs_iron_tool.json
+514f9a9457996a44a7cd34f3db2d3541d26a1fb1 data/minecraft/tags/blocks/mineable/pickaxe.json
+c05a44651ef6ed04c0e0e8fdec4eda5235878347 data/minecraft/tags/blocks/needs_iron_tool.json
 e4e4c2a3f4754210abfb8668c53219657c16b9b9 data/pm/advancements/recipes/premier_mod_tab/baguette.json
 f24ca6e19199e9caba55eb3b802289b6522997c8 data/pm/advancements/recipes/premier_mod_tab/firestone_block.json
 4e2a13d99c0f3f36e3533c7c3f713e7711af73aa data/pm/advancements/recipes/premier_mod_tab/powergen.json
@@ -189,6 +192,7 @@ def1cc625ec7ec46cde1664abbdbb21c0bf441ad data/pm/advancements/recipes/premier_mo
 b3afb7bbf15b39a504b1ae5bf99fad6636d34c80 data/pm/loot_tables/blocks/firestone_block.json
 d9b95910cb5a4ef6b93b8f47f00b52c41f35f45c data/pm/loot_tables/blocks/lightning_channeler.json
 cc163b1f2e786a45c2bf54ece13604549e994984 data/pm/loot_tables/blocks/orchid.json
+4c23820e0f0e19a5979c33148ec6bd4c3f3f45dd data/pm/loot_tables/blocks/ore_generator.json
 374fc761ad454802cb3e7a484cfec94537b114d8 data/pm/loot_tables/blocks/pepper_plant.json
 a4f654a619ae96b120326f815e2b97053a0802be data/pm/loot_tables/blocks/powergen.json
 62262fa638c718a3f2a2d2524bc0cfd2d1bda349 data/pm/loot_tables/blocks/redwood_leaves.json

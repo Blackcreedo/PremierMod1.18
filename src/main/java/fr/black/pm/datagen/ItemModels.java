@@ -43,6 +43,7 @@ public class ItemModels extends ItemModelProvider {
         withExistingParent(ModBlocks.REDWOOD_SAPLING.get().getRegistryName().getPath(), modLoc("block/redwood_sapling"));
         withExistingParent(ModTileEntities.POWERGEN.get().getRegistryName().getPath(), modLoc("block/powergen/main"));
         withExistingParent(ModTileEntities.LIGHTNING_CHANNELER.get().getRegistryName().getPath(), modLoc("block/lightning_channeler"));
+        withExistingParent(ModTileEntities.ORE_GENERATOR.get().getRegistryName().getPath(), modLoc("block/ore_generator"));
 
 
         singleTexture(ModItems.BAGUETTE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/baguette"));

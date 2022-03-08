@@ -4,10 +4,13 @@ package fr.black.pm.events;
 
 import fr.black.pm.PremierMod;
 import fr.black.pm.item.ModItems;
+import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,23 +33,10 @@ public class ModEvents {
             }
         }
     }
-/*
+
     @SubscribeEvent
-    public static void giveBittenBaguetteWhenEat(LivingEntityUseItemEvent.Stop event){
-        if(event.getItem().getItem() == ModItems.BAGUETTE.get()){
-            Entity entity = event.getEntity();
-            if(entity instanceof Player){
-                Player player = (Player) entity;
-                player.addItem(new ItemStack(ModItems.BAGUETTE_BITE_1.get()));
-            }
-        }
-        if(event.getItem().getItem() == ModItems.BAGUETTE_BITE_1.get()){
-            Entity entity = event.getEntity();
-            if(entity instanceof Player){
-                Player player = (Player) entity;
-                player.addItem(new ItemStack(ModItems.BAGUETTE_BITE_2.get()));
-            }
-        }
-    }*/
+    public static void onModelRegistryEvent(ModelRegistryEvent event){
+        ModelLoaderRegistry.registerLoader(OreGeneratorModelLoader.GENERATOR_LOADER, new OreGeneratorModelLoader());
+    }
 
 }
