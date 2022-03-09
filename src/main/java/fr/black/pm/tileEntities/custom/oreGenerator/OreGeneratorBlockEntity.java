@@ -41,6 +41,11 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     public static final int INPUT_SLOTS = 5;
     public static final int OUTPUT_SLOTS = 1;
 
+
+    // Issue using ForegeConfigSpec.Int in OreGeneratorConfig: ENERGY_CAPACITY == null
+    private static final int ENERGY_CAPACITY = 100000;
+    private static final int ENERGY_RECEIVE = 1000;
+
     // The properties that are used to communicate data to the baked model (GeneratorBakedModel)
     public static final ModelProperty<BlockState> GENERATING_BLOCK = new ModelProperty<>();
     public static final ModelProperty<Boolean> GENERATING = new ModelProperty<>();
@@ -239,7 +244,8 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     }
 
     private CustomEnergyStorage createEnergyStorage() {
-        return new CustomEnergyStorage(OreGeneratorConfig.ENERGY_CAPACITY.get(), OreGeneratorConfig.ENERGY_RECEIVE.get()) {
+        System.out.println("#####################"+ ENERGY_CAPACITY);
+        return new CustomEnergyStorage(ENERGY_CAPACITY, ENERGY_RECEIVE) {
             @Override
             protected void onEnergyChange() {
                 setChanged();

@@ -7,14 +7,19 @@ import fr.black.pm.enchantment.ModEnchantment;
 import fr.black.pm.item.ModItems;
 import fr.black.pm.tileEntities.ModTileEntities;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerScreen;
+import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader;
 import fr.black.pm.tileEntities.custom.powergen.PowergenScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,7 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(PremierMod.MOD_ID)
-
+@Mod.EventBusSubscriber(modid = PremierMod.MOD_ID, value= Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PremierMod 
 {
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -64,6 +69,12 @@ public class PremierMod
 
 
 	}
+
+	@SubscribeEvent
+	public static void onModelRegistryEvent(ModelRegistryEvent event){
+		ModelLoaderRegistry.registerLoader(OreGeneratorModelLoader.ORE_GENERATOR_LOADER, new OreGeneratorModelLoader());
+	}
+
 
 	private void setup(final FMLCommonSetupEvent event){
 		event.enqueueWork(() -> {

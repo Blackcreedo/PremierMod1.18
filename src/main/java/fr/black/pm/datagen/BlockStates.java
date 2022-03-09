@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.GENERATOR_LOADER;
+import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.ORE_GENERATOR_LOADER;
 
 
 public class BlockStates extends BlockStateProvider {
@@ -158,7 +158,7 @@ public class BlockStates extends BlockStateProvider {
         // Using CustomLoaderBuilder we can define a json file for our model that will use our baked model
         BlockModelBuilder generatorModel = models().getBuilder(ModTileEntities.ORE_GENERATOR.get().getRegistryName().getPath())
                 .parent(models().getExistingFile(mcLoc("cube")))
-                .customLoader((blockModelBuilder, helper) -> new CustomLoaderBuilder<BlockModelBuilder>(GENERATOR_LOADER, blockModelBuilder, helper){}).end();
+                .customLoader((blockModelBuilder, helper) -> new CustomLoaderBuilder<BlockModelBuilder>(ORE_GENERATOR_LOADER, blockModelBuilder, helper){}).end();
         directionalBlock(ModTileEntities.ORE_GENERATOR.get(), generatorModel);
     }
 

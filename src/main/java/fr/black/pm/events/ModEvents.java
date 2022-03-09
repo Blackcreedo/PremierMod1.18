@@ -34,9 +34,5 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onModelRegistryEvent(ModelRegistryEvent event){
-        ModelLoaderRegistry.registerLoader(OreGeneratorModelLoader.GENERATOR_LOADER, new OreGeneratorModelLoader());
-    }
 
 }

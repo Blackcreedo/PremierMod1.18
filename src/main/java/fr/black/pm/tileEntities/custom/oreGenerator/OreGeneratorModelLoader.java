@@ -21,21 +21,21 @@ import java.util.function.Function;
 
 public class OreGeneratorModelLoader implements IModelLoader<OreGeneratorModelLoader.GeneratorModelGeometry> {
 
-    public static final ResourceLocation GENERATOR_LOADER = new ResourceLocation(PremierMod.MOD_ID, "generatorloader");
+    public static final ResourceLocation ORE_GENERATOR_LOADER = new ResourceLocation(PremierMod.MOD_ID, "ore_generatorloader");
 
     // All 5 textures required for the block
-    public static final ResourceLocation GENERATOR_FRONT_POWERED = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_front_powered");
-    public static final ResourceLocation GENERATOR_FRONT = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_front");
-    public static final ResourceLocation GENERATOR_SIDE = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_side");
-    public static final ResourceLocation GENERATOR_ON = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_on");
-    public static final ResourceLocation GENERATOR_OFF = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_off");
+    public static final ResourceLocation ORE_GENERATOR_FRONT_POWERED = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_front_powered");
+    public static final ResourceLocation ORE_GENERATOR_FRONT = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_front");
+    public static final ResourceLocation ORE_GENERATOR_SIDE = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_side");
+    public static final ResourceLocation ORE_GENERATOR_ON = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_on");
+    public static final ResourceLocation ORE_GENERATOR_OFF = new ResourceLocation(PremierMod.MOD_ID, "block/ore_generator_off");
 
     // Material is a mix of an atlas and a texture
-    public static final Material MATERIAL_FRONT_POWERED = ForgeHooksClient.getBlockMaterial(GENERATOR_FRONT_POWERED);
-    public static final Material MATERIAL_FRONT = ForgeHooksClient.getBlockMaterial(GENERATOR_FRONT);
-    public static final Material MATERIAL_SIDE = ForgeHooksClient.getBlockMaterial(GENERATOR_SIDE);
-    public static final Material MATERIAL_ON = ForgeHooksClient.getBlockMaterial(GENERATOR_ON);
-    public static final Material MATERIAL_OFF = ForgeHooksClient.getBlockMaterial(GENERATOR_OFF);
+    public static final Material MATERIAL_FRONT_POWERED = ForgeHooksClient.getBlockMaterial(ORE_GENERATOR_FRONT_POWERED);
+    public static final Material MATERIAL_FRONT = ForgeHooksClient.getBlockMaterial(ORE_GENERATOR_FRONT);
+    public static final Material MATERIAL_SIDE = ForgeHooksClient.getBlockMaterial(ORE_GENERATOR_SIDE);
+    public static final Material MATERIAL_ON = ForgeHooksClient.getBlockMaterial(ORE_GENERATOR_ON);
+    public static final Material MATERIAL_OFF = ForgeHooksClient.getBlockMaterial(ORE_GENERATOR_OFF);
 
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {

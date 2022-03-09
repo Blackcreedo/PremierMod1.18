@@ -13,6 +13,8 @@ public class OreGeneratorConfig {
 
 
     public static void registerServerConfig(ForgeConfigSpec.Builder SERVER_BUILDER) {
+        SERVER_BUILDER.comment("Settings for the ore generator").push("ore_generator");
+
         ENERGY_GENERATE = SERVER_BUILDER
                 .comment("How much energy is needed to process one ore block")
                 .defineInRange("generate", 500, 1, Integer.MAX_VALUE);
@@ -23,15 +25,15 @@ public class OreGeneratorConfig {
 
         INGOTS_PER_ORE = SERVER_BUILDER
                 .comment("How much ingots are required to process one ore block")
-                .defineInRange("collectingDelay", 10, 1, Integer.MAX_VALUE);
+                .defineInRange("ingotsPerOre", 10, 1, Integer.MAX_VALUE);
 
         ENERGY_CAPACITY = SERVER_BUILDER
                 .comment("The energy capacity of th OreGenerator")
-                .defineInRange("collectingDelay", 100000, 1, Integer.MAX_VALUE);
+                .defineInRange("capacity", 100000, 1, Integer.MAX_VALUE);
 
         ENERGY_RECEIVE = SERVER_BUILDER
                 .comment("How much energy the OreGenerator can receive")
-                .defineInRange("collectingDelay", 1000, 1, Integer.MAX_VALUE);
+                .defineInRange("receive", 1000, 1, Integer.MAX_VALUE);
     }
 
 

@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +48,7 @@ public class OreGeneratorBlock extends Block implements EntityBlock {
     private static final VoxelShape SHAPE_WEST = Shapes.box(0.2,0,0,1,1,1);
 
     public OreGeneratorBlock() {
-        super(Properties.of(Material.METAL).sound(SoundType.METAL).strength(2f).noOcclusion());
+        super(Properties.of(Material.METAL).sound(SoundType.METAL).strength(2f).noOcclusion().requiresCorrectToolForDrops());
     }
 
     @Override
@@ -56,7 +57,7 @@ public class OreGeneratorBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, BlockGetter getter, BlockPos pos) {
+    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return switch (state.getValue(BlockStateProperties.FACING)){
             case DOWN -> SHAPE_DOWN;
             case UP -> SHAPE_UP;
@@ -99,17 +100,14 @@ public class OreGeneratorBlock extends Block implements EntityBlock {
                     double y = getYFromHit(facing, hit);
                     if(x<0.5){
                         // put ore
-                        player.sendMessage(new TextComponent("Put Ore"), Util.NIL_UUID);
                         generator.setCollecting(!generator.isCollecting());
                     }
                     else if(y < 0.5){
                         // start generating
-                        player.sendMessage(new TextComponent("start generating"), Util.NIL_UUID);
                         generator.setGenerating(!generator.isGenerating());
                     }
                     else{
                         // get ingots
-                        player.sendMessage(new TextComponent("get ingots"), Util.NIL_UUID);
                         ItemStack item = player.getItemInHand(hand);
                         if(item.getItem() instanceof BlockItem blockItem){
                             var blockState  = blockItem.getBlock().defaultBlockState();
