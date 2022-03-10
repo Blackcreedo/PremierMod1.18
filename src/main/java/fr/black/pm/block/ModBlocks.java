@@ -140,8 +140,8 @@ public class ModBlocks{
 			registerBlock("redwood_sapling", () -> new SaplingBlock(new RedwoodTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
 
-	public static final RegistryObject<Block> CABLE =
-			registerBlock("cable", () -> new Cable(BlockBehaviour.Properties.of(Material.METAL).strength(3f).requiresCorrectToolForDrops()));
+	public static final RegistryObject<Cable> CABLE =
+			registerBlock("cable", () -> new Cable(BlockBehaviour.Properties.of(Material.METAL).strength(3f).noOcclusion().requiresCorrectToolForDrops()));
 
 
 

@@ -63,7 +63,7 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
 
-        //registerCable((Cable) ModBlocks.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"));
+        registerCable((Cable) ModBlocks.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"), new ResourceLocation("block/texture_cable_test_2"));
         registerPowergen();
         registerOreGenerator();
     }
@@ -105,13 +105,33 @@ public class BlockStates extends BlockStateProvider {
                 .partialState().with(CropBlock.AGE, 7).modelForState().modelFile(models().cross("block/crop/"+name +"/"+ name + "_stage7", cropModel(block, name,7))).addModel();
     }
 
-    private void registerCable(Cable cable, String baseName, ResourceLocation texture){
-        cableBlock(cable, models().singleTexture(baseName + "_post",modLoc(BLOCK_FOLDER + "/template_cable_post"), "cable", texture),
-                models().singleTexture(baseName + "_side",modLoc(BLOCK_FOLDER + "/template_cable_side"), "cable", texture));
+    private void registerCable(Cable cable, String baseName, ResourceLocation side, ResourceLocation top){
+
+        cableBlock(cable);
+        //cableBlock(cable, models().singleTexture(baseName + "_top",modLoc(BLOCK_FOLDER + "/template_cable_top"), "cable", top),
+        //models().singleTexture(baseName + "_side",modLoc(BLOCK_FOLDER + "/template_cable_side"), "cable", side));
+        //register Inventory texture
+        //models().singleTexture(baseName, modLoc(BLOCK_FOLDER + "/cable_inventory"), "cable", side);
     }
 
-    private void cableBlock(Cable cable, ModelFile post, ModelFile side){
-        MultiPartBlockStateBuilder builder = getMultipartBuilder(cable).part().modelFile(post).addModel().condition(WallBlock.UP, true).end();
+    private void cableBlock(Cable cable){
+
+        BlockModelBuilder side = models().getBuilder("block/cable/side")
+                .element().from(0,5,5).to(16,11,11).face(Direction.DOWN).texture("#single").end().end()
+                .texture("single", modLoc("block/texture_cable_test_1"));
+
+        BlockModelBuilder top = models().getBuilder("block/cable/top")
+                .element().from(5,5,0).to(11,11,0).face(Direction.NORTH).texture("#single").end().end()
+                .texture("single", modLoc("block/texture_cable_test_2"));
+
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(cable);
+
+        builder.part().modelFile(side).addModel();
+        builder.part().modelFile(side).rotationX(180).addModel();
+        builder.part().modelFile(side).rotationX(90).addModel();
+        builder.part().modelFile(side).rotationX(270).addModel();
+        builder.part().modelFile(top).rotationY(90).addModel();
+        builder.part().modelFile(top).rotationX(180).rotationY(90).addModel();
     }
 
     private void registerPowergen(){
@@ -153,17 +173,17 @@ public class BlockStates extends BlockStateProvider {
                 .element().from(3,3,3).to(13,13,13).face(Direction.DOWN).texture("#single").end().end()
                 .texture("single", modLoc("block/powergen_on"));
 
-        MultiPartBlockStateBuilder bld = getMultipartBuilder(block);
-        bld.part().modelFile(frame).addModel();
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+        builder.part().modelFile(frame).addModel();
 
         BlockModelBuilder[] models = new BlockModelBuilder[] {singleOff, singleOn};
         for(int i=0; i<2; i++){
-            bld.part().modelFile(models[i]).addModel().condition(BlockStateProperties.POWERED, i==1);
-            bld.part().modelFile(models[i]).rotationX(180).addModel().condition(BlockStateProperties.POWERED, i==1);
-            bld.part().modelFile(models[i]).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
-            bld.part().modelFile(models[i]).rotationX(270).addModel().condition(BlockStateProperties.POWERED, i==1);
-            bld.part().modelFile(models[i]).rotationY(90).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
-            bld.part().modelFile(models[i]).rotationY(270).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).rotationX(180).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).rotationX(270).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).rotationY(90).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
+            builder.part().modelFile(models[i]).rotationY(270).rotationX(90).addModel().condition(BlockStateProperties.POWERED, i==1);
         }
     }
 
