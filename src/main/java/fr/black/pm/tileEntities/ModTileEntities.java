@@ -9,6 +9,7 @@ import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBloc
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerContainer;
 import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlock;
 import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlockEntity;
+import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorConfig;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlock;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import fr.black.pm.tileEntities.custom.powergen.PowergenContainer;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

@@ -1,9 +1,7 @@
 package fr.black.pm.tileEntities.custom.oreGenerator;
 
-import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -100,19 +98,18 @@ public class OreGeneratorBlock extends Block implements EntityBlock {
                     double y = getYFromHit(facing, hit);
                     if(x<0.5){
                         // put ore
+                        player.sendMessage(new TextComponent("put Ore"), Util.NIL_UUID);
                         generator.setCollecting(!generator.isCollecting());
                     }
                     else if(y < 0.5){
                         // start generating
-                        generator.setGenerating(!generator.isGenerating());
+                        player.sendMessage(new TextComponent("Change generating value"), Util.NIL_UUID);
+                        generator.setGenerating(!generator.isGenerating(false));
                     }
                     else{
                         // get ingots
-                        ItemStack item = player.getItemInHand(hand);
-                        if(item.getItem() instanceof BlockItem blockItem){
-                            var blockState  = blockItem.getBlock().defaultBlockState();
-                            generator.setGeneratingBlock(blockState);
-                        }
+                        player.sendMessage(new TextComponent("Check generating value"), Util.NIL_UUID);
+                        generator.isGenerating(true);
                     }
                 }
             }

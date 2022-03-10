@@ -41,10 +41,13 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     public static final int INPUT_SLOTS = 5;
     public static final int OUTPUT_SLOTS = 1;
 
-
-    // Issue using ForegeConfigSpec.Int in OreGeneratorConfig: ENERGY_CAPACITY == null
+    private static final int COLLECTING_DELAY = 10;
+    private static final int ENERGY_GENERATE = 1000;
     private static final int ENERGY_CAPACITY = 100000;
-    private static final int ENERGY_RECEIVE = 1000;
+    private static final int ENERGY_RECEIVE = 500;
+    private static final int INGOTS_PER_ORE = 10;
+
+
 
     // The properties that are used to communicate data to the baked model (GeneratorBakedModel)
     public static final ModelProperty<BlockState> GENERATING_BLOCK = new ModelProperty<>();
@@ -76,20 +79,22 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     private final CustomEnergyStorage energy = createEnergyStorage();
     private final LazyOptional<IEnergyStorage> energyHandler = LazyOptional.of(() -> energy);
 
-    public OreGeneratorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModTileEntities.ORE_GENERATOR_BLOCKENTITY.get(), pos, blockState);
+    public OreGeneratorBlockEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.ORE_GENERATOR_BLOCKENTITY.get(), pos, state);
     }
 
-
-    public boolean isGenerating() {
+    public boolean isGenerating(boolean print) {
+        if(print){
+            System.out.println(generating);
+        }
         return generating;
     }
 
     public void setGenerating(boolean generating) {
         this.generating = generating;
+        System.out.println(this.generating);
         setChanged();
-        BlockState state = getBlockState();
-        level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     public boolean isCollecting() {
@@ -98,60 +103,62 @@ public class OreGeneratorBlockEntity extends BlockEntity {
 
     public void setCollecting(boolean collecting) {
         this.collecting = collecting;
+        System.out.println(this.collecting);
         setChanged();
-        BlockState state = getBlockState();
-        level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     public void setGeneratingBlock(BlockState generatingBlock) {
+        // Only accept ores by checking the tag
         if (generatingBlock.is(Tags.Blocks.ORES)) {
             this.generatingBlock = generatingBlock;
             setChanged();
-            BlockState state = getBlockState();
-            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
-    public void tickServer(){
-        if(collecting){
+    // Called by the block ticker
+    public void tickServer() {
+        //System.out.print(collecting);
+        if (collecting) {
             collectingTicker--;
-            if(collectingTicker>=0){
-                collectingTicker = OreGeneratorConfig.COLLECTING_DELAY.get();
+            if (collectingTicker <= 0) {
+                collectingTicker = COLLECTING_DELAY;
                 collectItems();
             }
         }
 
         boolean areWeGenerating = false;
-        if(generating){
+        System.out.print(generating);
+        if (generating) {
             areWeGenerating = generateOres();
         }
-        if(areWeGenerating != actuallyGenerating){
+        //System.out.print(areWeGenerating);
+        //System.out.println(actuallyGenerating);
+        if (areWeGenerating != actuallyGenerating) {
             actuallyGenerating = areWeGenerating;
             setChanged();
-            BlockState state = getBlockState();
-            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
-
     private void collectItems() {
-        // get 3x3 area around the OreGenerator
-        if(collectingBox==null){
+        // We calculate and cache a 3x3x3 box around our position
+        if (collectingBox == null) {
             collectingBox = new AABB(getBlockPos()).inflate(1);
         }
-        // Items on the ground are ItemEntity
-        // get all entities
-        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class /*of type ItemEntity*/, collectingBox /*in the 3x3 box*/,
-                itemEntity ->{
+        // Find all entities of type ItemEntity (representing items on the ground) and check if they are
+        // ingots by testing with the INGOTS item tag
+        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, collectingBox,
+                itemEntity -> {
                     ItemStack item = itemEntity.getItem();
-                    return item.is(Tags.Items.INGOTS); // that are ingots
+                    return item.is(Tags.Items.INGOTS);
                 });
-
         // For each of these items we try to insert it in the input buffer and kill or shrink the item on the ground
-        for(ItemEntity itemEntity : entities){
+        for (ItemEntity itemEntity : entities) {
             ItemStack item = itemEntity.getItem();
             ItemStack remainder = ItemHandlerHelper.insertItem(inputItems, item, false);
-            if(remainder.isEmpty()){
+            if (remainder.isEmpty()) {
                 itemEntity.kill();
             } else {
                 itemEntity.setItem(remainder);
@@ -159,31 +166,32 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         }
     }
 
-
-    private boolean generateOres(){
-        if(generatingBlock == null){
+    private boolean generateOres() {
+        // The player didn't select anything to generate
+        if (generatingBlock == null) {
             return false;
         }
-
-        if(energy.getEnergyStored() < OreGeneratorConfig.ENERGY_GENERATE.get()){
+        // Not enough energy, don't even try
+        if (energy.getEnergyStored() < ENERGY_GENERATE) {
             return false;
         }
-
         boolean areWeGenerating = false;
-        for(int i=0; i<inputItems.getSlots(); i++){
+        for (int i = 0; i < inputItems.getSlots() ; i++) {
             ItemStack item = inputItems.getStackInSlot(i);
-            if(!item.isEmpty()){
-                energy.consumeEnergy(OreGeneratorConfig.ENERGY_GENERATE.get());
+            if (!item.isEmpty()) {
+                energy.consumeEnergy(ENERGY_GENERATE);
                 // The API documentation from getStackInSlot says you are not allowed to modify the itemstacks returned
                 // by getStackInSlot. That's why we make a copy here
                 item = item.copy();
                 item.shrink(1);
-                inputItems.setStackInSlot(i,item);
+                // Put back the item with one less (can be empty)
+                inputItems.setStackInSlot(i, item);
                 generatingCounter++;
                 areWeGenerating = true;
                 setChanged();
-                if(generatingCounter >= OreGeneratorConfig.INGOTS_PER_ORE.get()){
+                if (generatingCounter >= INGOTS_PER_ORE) {
                     generatingCounter = 0;
+                    // For each of these ores we try to insert it in the output buffer or else throw it on the ground
                     ItemStack remaining = ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.getBlock().asItem()), false);
                     spawnInWorld(level, worldPosition, remaining);
                 }
@@ -194,16 +202,16 @@ public class OreGeneratorBlockEntity extends BlockEntity {
 
     private static void spawnInWorld(Level level, BlockPos pos, ItemStack remaining) {
         if (!remaining.isEmpty()) {
-            ItemEntity entityItem = new ItemEntity(level, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, remaining);
-            entityItem.setPickUpDelay(40);
-            entityItem.setDeltaMovement(entityItem.getDeltaMovement().multiply(0, 1, 0));
-            level.addFreshEntity(entityItem);
+            ItemEntity entityitem = new ItemEntity(level, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, remaining);
+            entityitem.setPickUpDelay(40);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+            level.addFreshEntity(entityitem);
         }
     }
 
     @Nonnull
-    private ItemStackHandler createInputItemHandler(){
-        return new ItemStackHandler(INPUT_SLOTS){
+    private ItemStackHandler createInputItemHandler() {
+        return new ItemStackHandler(INPUT_SLOTS) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -217,8 +225,9 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         };
     }
 
-    private ItemStackHandler createOutputItemHandler(){
-        return new ItemStackHandler(OUTPUT_SLOTS){
+    @Nonnull
+    private ItemStackHandler createOutputItemHandler() {
+        return new ItemStackHandler(OUTPUT_SLOTS) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -227,8 +236,8 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     }
 
     @Nonnull
-    private IItemHandler createCombinedItemHandler(){
-        return new CombinedInvWrapper(inputItems, outputItems){
+    private IItemHandler createCombinedItemHandler() {
+        return new CombinedInvWrapper(inputItems, outputItems) {
             @NotNull
             @Override
             public ItemStack extractItem(int slot, int amount, boolean simulate) {
@@ -244,7 +253,6 @@ public class OreGeneratorBlockEntity extends BlockEntity {
     }
 
     private CustomEnergyStorage createEnergyStorage() {
-        System.out.println("#####################"+ ENERGY_CAPACITY);
         return new CustomEnergyStorage(ENERGY_CAPACITY, ENERGY_RECEIVE) {
             @Override
             protected void onEnergyChange() {
@@ -255,6 +263,7 @@ public class OreGeneratorBlockEntity extends BlockEntity {
 
     // The getUpdateTag()/handleUpdateTag() pair is called whenever the client receives a new chunk
     // it hasn't seen before. i.e. the chunk is loaded
+
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
@@ -297,8 +306,7 @@ public class OreGeneratorBlockEntity extends BlockEntity {
                 oldActuallyGenerating != actuallyGenerating ||
                 !Objects.equals(generatingBlock, oldGeneratingBlock)) {
             ModelDataManager.requestModelDataRefresh(this);
-            BlockState state = getBlockState();
-            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
@@ -329,7 +337,6 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         tag.put("Energy", energy.serializeNBT());
         CompoundTag infoTag = tag.getCompound("Info");
         infoTag.putInt("Generating", generatingCounter);
-        tag.put("Info", infoTag);
     }
 
     private void saveClientData(CompoundTag tag) {

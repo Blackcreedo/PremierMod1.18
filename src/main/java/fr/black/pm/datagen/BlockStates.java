@@ -2,6 +2,7 @@ package fr.black.pm.datagen;
 
 import fr.black.pm.PremierMod;
 import fr.black.pm.block.ModBlocks;
+import fr.black.pm.block.custom.Cable;
 import fr.black.pm.block.custom.TestBlock;
 import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.core.Direction;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.ORE_GENERATOR_LOADER;
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 
 public class BlockStates extends BlockStateProvider {
@@ -60,6 +62,8 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_LEAVES.get());
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
+
+        //registerCable((Cable) ModBlocks.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"));
         registerPowergen();
         registerOreGenerator();
     }
@@ -99,6 +103,15 @@ public class BlockStates extends BlockStateProvider {
                 .partialState().with(CropBlock.AGE, 5).modelForState().modelFile(models().cross("block/crop/"+name +"/"+ name + "_stage5", cropModel(block, name,5))).addModel()
                 .partialState().with(CropBlock.AGE, 6).modelForState().modelFile(models().cross("block/crop/"+name +"/"+ name + "_stage6", cropModel(block, name,6))).addModel()
                 .partialState().with(CropBlock.AGE, 7).modelForState().modelFile(models().cross("block/crop/"+name +"/"+ name + "_stage7", cropModel(block, name,7))).addModel();
+    }
+
+    private void registerCable(Cable cable, String baseName, ResourceLocation texture){
+        cableBlock(cable, models().singleTexture(baseName + "_post",modLoc(BLOCK_FOLDER + "/template_cable_post"), "cable", texture),
+                models().singleTexture(baseName + "_side",modLoc(BLOCK_FOLDER + "/template_cable_side"), "cable", texture));
+    }
+
+    private void cableBlock(Cable cable, ModelFile post, ModelFile side){
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(cable).part().modelFile(post).addModel().condition(WallBlock.UP, true).end();
     }
 
     private void registerPowergen(){
