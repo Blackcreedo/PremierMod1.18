@@ -2,7 +2,7 @@ package fr.black.pm.datagen;
 
 import fr.black.pm.PremierMod;
 import fr.black.pm.block.ModBlocks;
-import fr.black.pm.block.custom.Cable;
+import fr.black.pm.tileEntities.custom.Cable;
 import fr.black.pm.block.custom.TestBlock;
 import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.core.Direction;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.ORE_GENERATOR_LOADER;
-import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 
 public class BlockStates extends BlockStateProvider {
@@ -63,7 +62,7 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
 
-        registerCable((Cable) ModBlocks.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"), new ResourceLocation("block/texture_cable_test_2"));
+        registerCable((Cable) ModTileEntities.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"), new ResourceLocation("block/texture_cable_test_2"));
         registerPowergen();
         registerOreGenerator();
     }
@@ -124,14 +123,51 @@ public class BlockStates extends BlockStateProvider {
                 .element().from(5,5,0).to(11,11,0).face(Direction.NORTH).texture("#single").end().end()
                 .texture("single", modLoc("block/texture_cable_test_2"));
 
+        Direction[] directions = {Direction.UP, Direction.NORTH, Direction.EAST};
         MultiPartBlockStateBuilder builder = getMultipartBuilder(cable);
+/*        avec side down and top north
+        builder.part().modelFile(side).addModel().condition(BlockStateProperties.FACING, directions[2]);
+        builder.part().modelFile(side).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[2]);
+        builder.part().modelFile(side).rotationX(90).addModel().condition(BlockStateProperties.FACING, directions[2]);
+        builder.part().modelFile(side).rotationX(270).addModel().condition(BlockStateProperties.FACING, directions[2]);
+        builder.part().modelFile(top).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[2]);
+        builder.part().modelFile(top).rotationX(180).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[2]);
 
-        builder.part().modelFile(side).addModel();
-        builder.part().modelFile(side).rotationX(180).addModel();
-        builder.part().modelFile(side).rotationX(90).addModel();
-        builder.part().modelFile(side).rotationX(270).addModel();
-        builder.part().modelFile(top).rotationY(90).addModel();
-        builder.part().modelFile(top).rotationX(180).rotationY(90).addModel();
+        builder.part().modelFile(side).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+        builder.part().modelFile(side).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+        builder.part().modelFile(side).rotationX(90).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+        builder.part().modelFile(side).rotationX(270).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+        builder.part().modelFile(top).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+        builder.part().modelFile(top).rotationX(180).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[2].getOpposite());
+
+        builder.part().modelFile(top).addModel().condition(BlockStateProperties.FACING, directions[1]);
+        builder.part().modelFile(top).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[1]);
+        builder.part().modelFile(side).rotationX(90).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1]);
+        builder.part().modelFile(side).rotationX(270).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1]);
+        builder.part().modelFile(side).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1]);
+        builder.part().modelFile(side).rotationX(180).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1]);
+
+        builder.part().modelFile(top).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());
+        builder.part().modelFile(top).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());
+        builder.part().modelFile(side).rotationX(90).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());
+        builder.part().modelFile(side).rotationX(270).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());
+        builder.part().modelFile(side).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());
+        builder.part().modelFile(side).rotationX(180).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[1].getOpposite());*/
+
+        builder.part().modelFile(side).addModel().condition(BlockStateProperties.FACING, directions[0]);
+        builder.part().modelFile(side).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[0]);
+        builder.part().modelFile(top).rotationX(90).addModel().condition(BlockStateProperties.FACING, directions[0]);
+        builder.part().modelFile(top).rotationX(270).addModel().condition(BlockStateProperties.FACING, directions[0]);
+        builder.part().modelFile(side).rotationX(90).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[0]);
+        builder.part().modelFile(side).rotationX(270).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[0]);
+
+        builder.part().modelFile(side).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+        builder.part().modelFile(side).rotationX(180).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+        builder.part().modelFile(top).rotationX(90).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+        builder.part().modelFile(top).rotationX(270).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+        builder.part().modelFile(side).rotationX(90).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+        builder.part().modelFile(side).rotationX(270).rotationY(90).addModel().condition(BlockStateProperties.FACING, directions[0].getOpposite());
+
     }
 
     private void registerPowergen(){

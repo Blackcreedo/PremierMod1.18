@@ -4,6 +4,7 @@ import fr.black.pm.block.ModBlocks;
 import fr.black.pm.PremierMod;
 import fr.black.pm.item.ModCreativeModeTab;
 import fr.black.pm.item.ModItems;
+import fr.black.pm.tileEntities.custom.Cable;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlock;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlockEntity;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerContainer;
@@ -18,6 +19,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -52,6 +55,10 @@ public class ModTileEntities {
             BLOCK_ENTITIES.register("lightning_channeler", () -> BlockEntityType.Builder.of(LightningChannelerBlockEntity::new, LIGHTNING_CHANNELER.get()).build(null));
     public static final RegistryObject<MenuType<LightningChannelerContainer>> LIGHTNING_CHANNELER_CONTAINER =
             CONTAINERS.register("lightning_channeler", () -> IForgeMenuType.create((windowId, inv, data) -> new LightningChannelerContainer(windowId,data.readBlockPos(), inv, inv.player)));
+
+
+    public static final RegistryObject<Cable> CABLE =
+            registerBlock("cable", () -> new Cable(BlockBehaviour.Properties.of(Material.METAL).strength(3f).noOcclusion().requiresCorrectToolForDrops()));
 
 
 
