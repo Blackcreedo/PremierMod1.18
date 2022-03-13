@@ -129,7 +129,7 @@ public class OreGeneratorBlockEntity extends BlockEntity {
         }
 
         boolean areWeGenerating = false;
-        System.out.print(generating);
+        //System.out.print(generating);
         if (generating) {
             areWeGenerating = generateOres();
         }
