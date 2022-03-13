@@ -33,6 +33,7 @@ public class Cable extends Block implements EntityBlock {
     public static final BooleanProperty SOUTH_CONNECTION = BooleanProperty.create("south_connection");
     public static final BooleanProperty UP_CONNECTION = BooleanProperty.create("up_connection");
     public static final BooleanProperty DOWN_CONNECTION = BooleanProperty.create("down_connection");
+    public static final BooleanProperty CENTER = BooleanProperty.create("center");
 
     private static final VoxelShape SHAPE_CENTER = Shapes.box(0.25,0.25,0.25,0.75,0.75,0.75);
     private static final VoxelShape SHAPE_DOWN = Shapes.box(0.31,0,0.31,0.69,0.69,0.69);
@@ -44,7 +45,7 @@ public class Cable extends Block implements EntityBlock {
 
     public Cable(Properties p_49795_) {
         super(p_49795_);
-        this.registerDefaultState(this.defaultBlockState().setValue(UP_CONNECTION, Boolean.valueOf(false)).setValue(DOWN_CONNECTION, Boolean.valueOf(false)).setValue(NORTH_CONNECTION, Boolean.valueOf(false)).setValue(SOUTH_CONNECTION, Boolean.valueOf(false)).setValue(EAST_CONNECTION, Boolean.valueOf(false)).setValue(WEST_CONNECTION, Boolean.valueOf(false)));
+        this.registerDefaultState(this.defaultBlockState().setValue(CENTER, Boolean.valueOf(true)).setValue(UP_CONNECTION, Boolean.valueOf(false)).setValue(DOWN_CONNECTION, Boolean.valueOf(false)).setValue(NORTH_CONNECTION, Boolean.valueOf(false)).setValue(SOUTH_CONNECTION, Boolean.valueOf(false)).setValue(EAST_CONNECTION, Boolean.valueOf(false)).setValue(WEST_CONNECTION, Boolean.valueOf(false)));
     }
 
     @Override
@@ -89,14 +90,44 @@ public class Cable extends Block implements EntityBlock {
         /*if (state1.getValue(WATERLOGGED)) {
             accessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(accessor));
         }*/
+            boolean east_connection = state1.getValue(EAST_CONNECTION);
+            boolean west_connection = state1.getValue(WEST_CONNECTION);
+            boolean north_connection = state1.getValue(NORTH_CONNECTION);
+            boolean south_connection = state1.getValue(SOUTH_CONNECTION);
+            boolean up_connection = state1.getValue(UP_CONNECTION);
+            boolean down_connection = state1.getValue(DOWN_CONNECTION);
 
             boolean needConnect = accessor.getBlockEntity(neighbor) != null || accessor.getBlockState(neighbor).getBlock() == ModTileEntities.CABLE.get();
-            if(direction == Direction.UP){accessor.setBlock(blockPos, state1.setValue(UP_CONNECTION, needConnect), Block.UPDATE_ALL);}
-            if(direction == Direction.DOWN){accessor.setBlock(blockPos, state1.setValue(DOWN_CONNECTION, needConnect), Block.UPDATE_ALL);}
-            if(direction == Direction.NORTH){accessor.setBlock(blockPos, state1.setValue(NORTH_CONNECTION, needConnect), Block.UPDATE_ALL);}
-            if(direction == Direction.SOUTH){accessor.setBlock(blockPos, state1.setValue(SOUTH_CONNECTION, needConnect), Block.UPDATE_ALL);}
-            if(direction == Direction.EAST){accessor.setBlock(blockPos, state1.setValue(EAST_CONNECTION, needConnect), Block.UPDATE_ALL);}
-            if(direction == Direction.WEST){accessor.setBlock(blockPos, state1.setValue(WEST_CONNECTION, needConnect), Block.UPDATE_ALL);}
+            if(direction == Direction.UP){
+                up_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(UP_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
+            if(direction == Direction.DOWN){
+                down_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(DOWN_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
+            if(direction == Direction.NORTH){
+                north_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(NORTH_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
+            if(direction == Direction.SOUTH){
+                south_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(SOUTH_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
+            if(direction == Direction.EAST){
+                east_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(EAST_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
+            if(direction == Direction.WEST){
+                west_connection = needConnect;
+                boolean updateCenter = (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection);
+                accessor.setBlock(blockPos, state1.setValue(WEST_CONNECTION, needConnect).setValue(CENTER, updateCenter), Block.UPDATE_ALL);
+            }
         }
         return super.updateShape(state1, direction, state2, accessor, blockPos, neighbor);
     }
@@ -104,12 +135,21 @@ public class Cable extends Block implements EntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Level level = context.getLevel();
+        boolean east_connection = level.getBlockState(context.getClickedPos().east()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().east()) != null;
+        boolean west_connection = level.getBlockState(context.getClickedPos().west()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().west()) != null;
+        boolean north_connection = level.getBlockState(context.getClickedPos().north()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().north()) != null;
+        boolean south_connection = level.getBlockState(context.getClickedPos().south()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().south()) != null;
+        boolean up_connection = level.getBlockState(context.getClickedPos().above()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().above()) != null;
+        boolean down_connection = level.getBlockState(context.getClickedPos().below()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().below()) != null;
+
+
         return this.defaultBlockState().setValue(EAST_CONNECTION, level.getBlockState(context.getClickedPos().east()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().east()) != null)
-                .setValue(WEST_CONNECTION, level.getBlockState(context.getClickedPos().west()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().west()) != null)
-                .setValue(NORTH_CONNECTION, level.getBlockState(context.getClickedPos().north()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().north()) != null)
-                .setValue(SOUTH_CONNECTION, level.getBlockState(context.getClickedPos().south()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().south()) != null)
-                .setValue(UP_CONNECTION, level.getBlockState(context.getClickedPos().above()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().above()) != null)
-                .setValue(DOWN_CONNECTION, level.getBlockState(context.getClickedPos().below()).getBlock() == ModTileEntities.CABLE.get() || level.getBlockEntity(context.getClickedPos().below()) != null);
+                .setValue(WEST_CONNECTION, west_connection)
+                .setValue(NORTH_CONNECTION, north_connection)
+                .setValue(SOUTH_CONNECTION, south_connection)
+                .setValue(UP_CONNECTION, up_connection)
+                .setValue(DOWN_CONNECTION, down_connection)
+                .setValue(CENTER, (((up_connection || down_connection) && (north_connection || south_connection || east_connection || west_connection)) || (north_connection || south_connection) && (east_connection || west_connection)) || !(up_connection || down_connection || east_connection || west_connection || north_connection || south_connection));
     }
 
     @Override
@@ -120,6 +160,7 @@ public class Cable extends Block implements EntityBlock {
         builder.add(SOUTH_CONNECTION);
         builder.add(UP_CONNECTION);
         builder.add(DOWN_CONNECTION);
+        builder.add(CENTER);
     }
 
     @Nullable

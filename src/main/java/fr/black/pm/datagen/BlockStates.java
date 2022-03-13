@@ -10,6 +10,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import static fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader.ORE_GENERATOR_LOADER;
@@ -62,7 +63,7 @@ public class BlockStates extends BlockStateProvider {
         simpleBlock(ModBlocks.REDWOOD_SAPLING.get(), models().cross("block/redwood_sapling", new ResourceLocation("pm:block/redwood_sapling")));
         simpleBlock(ModTileEntities.LIGHTNING_CHANNELER.get());
 
-        registerCable((Cable) ModTileEntities.CABLE.get(), "cable", new ResourceLocation("block/texture_cable_test_1"), new ResourceLocation("block/texture_cable_test_2"));
+        registerCable((Cable) ModTileEntities.CABLE.get(), "cable", new ResourceLocation("block/cable_side"), new ResourceLocation("block/cable_top"));
         registerPowergen();
         registerOreGenerator();
     }
@@ -116,21 +117,36 @@ public class BlockStates extends BlockStateProvider {
     private void cableBlock(Cable cable){
 
         BlockModelBuilder side = models().getBuilder("block/cable/side")
-                .element().from(0,5,5).to(16,11,11).face(Direction.DOWN).texture("#single").end().end()
-                .texture("single", modLoc("block/texture_cable_test_1"));
+                .element().from(10,5,5).to(16,11,11).face(Direction.DOWN).texture("#single").end().end()
+                .texture("single", modLoc("block/cable_side"));
 
         BlockModelBuilder top = models().getBuilder("block/cable/top")
                 .element().from(5,5,0).to(11,11,0).face(Direction.NORTH).texture("#single").end().end()
-                .texture("single", modLoc("block/texture_cable_test_2"));
+                .texture("single", modLoc("block/cable_top"));
 
-        Direction[] directions = {Direction.UP, Direction.NORTH, Direction.EAST};
+        BlockModelBuilder center = models().getBuilder("block/cable/center")
+                .element().from(4,4,4).to(12,12,4).face(Direction.NORTH).texture("#single").end().end()
+                .texture("single", modLoc("block/cable_center"));
+
+        Direction[] directions = {Direction.EAST, Direction.SOUTH,  Direction.WEST, Direction.NORTH};
+        BooleanProperty[] connections = {cable.EAST_CONNECTION, cable.SOUTH_CONNECTION, cable.WEST_CONNECTION, cable.NORTH_CONNECTION};
         MultiPartBlockStateBuilder builder = getMultipartBuilder(cable);
-        builder.part().modelFile(top).addModel();
-        builder.part().modelFile(top).rotationX(180).addModel();
-        builder.part().modelFile(top).rotationX(90).addModel();
-        builder.part().modelFile(top).rotationX(270).addModel();
-        builder.part().modelFile(top).rotationY(90).rotationX(90);
-        builder.part().modelFile(top).rotationY(270).rotationX(90);
+
+        for (int i =0;i<4;i++){
+            builder.part().modelFile(side).rotationY(90*i).addModel().condition(connections[i],true);
+            builder.part().modelFile(side).rotationY(90*i).rotationX(90).addModel().condition(connections[i],true);
+            builder.part().modelFile(side).rotationY(90*i).rotationX(180).addModel().condition(connections[i],true);
+            builder.part().modelFile(side).rotationY(90*i).rotationX(270).addModel().condition(connections[i],true);
+            builder.part().modelFile(top).rotationY(90*(i+1)).addModel().condition(connections[i],true);
+        }
+
+        builder.part().modelFile(center).addModel().condition(cable.CENTER, true);
+        builder.part().modelFile(center).rotationX(180).addModel().condition(cable.CENTER, true);
+        builder.part().modelFile(center).rotationX(90).addModel().condition(cable.CENTER, true);
+        builder.part().modelFile(center).rotationX(270).addModel().condition(cable.CENTER, true);
+        builder.part().modelFile(center).rotationY(90).addModel().condition(cable.CENTER, true);
+        builder.part().modelFile(center).rotationY(90).rotationX(180).addModel().condition(cable.CENTER, true);
+
 
 /*        avec side down and top north
         builder.part().modelFile(side).addModel().condition(BlockStateProperties.FACING, directions[2]);
