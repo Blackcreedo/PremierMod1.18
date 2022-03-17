@@ -1,0 +1,24 @@
+{
+  "textures": {
+    "single": "pm:block/cable_center"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        4,
+        4
+      ],
+      "to": [
+        12,
+        12,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#single"
+        }
+      }
+    }
+  ]
+}
