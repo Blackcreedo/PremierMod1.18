@@ -6,6 +6,7 @@ import fr.black.pm.effect.ModEffects;
 import fr.black.pm.enchantment.ModEnchantment;
 import fr.black.pm.item.ModItems;
 import fr.black.pm.tileEntities.ModTileEntities;
+import fr.black.pm.tileEntities.custom.cable.CableScreen;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerScreen;
 import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorModelLoader;
 import fr.black.pm.tileEntities.custom.powergen.PowergenScreen;
@@ -64,6 +65,7 @@ public class PremierMod
 
 		event.enqueueWork(() -> {
 			MenuScreens.register(ModTileEntities.POWERGEN_CONTAINER.get(), PowergenScreen::new);
+			MenuScreens.register(ModTileEntities.CABLE_CONTAINER.get(), CableScreen::new);
 			MenuScreens.register(ModTileEntities.LIGHTNING_CHANNELER_CONTAINER.get(), LightningChannelerScreen::new);
 		});
 

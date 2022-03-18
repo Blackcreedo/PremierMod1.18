@@ -2,6 +2,7 @@ package fr.black.pm.tileEntities.custom.cable;
 
 import fr.black.pm.energy.CustomEnergyStorage;
 import fr.black.pm.tileEntities.ModTileEntities;
+import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,15 +37,19 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     public void tickServer(){
-        sendOutPower();
+        System.out.println(energyStorage.getEnergyStored());
+        //sendOutPower();
     }
 
     private void sendOutPower(){
         AtomicInteger capacity = new AtomicInteger(energyStorage.getEnergyStored());
+        //System.out.println(capacity.get());
         if(capacity.get() > 0){
             for(Direction direction : Direction.values()){
                 BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
-                if(blockEntity != null){
+                System.out.println("ahahah");
+                if(blockEntity != null && !(blockEntity instanceof PowergenBlockEntity)){
+                    System.out.println("zbzbzb");
                     boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                         if (handler.canReceive()) {
                             int received = handler.receiveEnergy(Math.min(capacity.get(), CABLE_SEND), false);

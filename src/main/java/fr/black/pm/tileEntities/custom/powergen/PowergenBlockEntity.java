@@ -78,6 +78,7 @@ public class PowergenBlockEntity extends BlockEntity {
             for(Direction direction : Direction.values()){
                 BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
                 if(blockEntity != null){
+                    //System.out.println("test");
                     boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                         if (handler.canReceive()) {
                             int received = handler.receiveEnergy(Math.min(capacity.get(), POWERGEN_SEND), false);

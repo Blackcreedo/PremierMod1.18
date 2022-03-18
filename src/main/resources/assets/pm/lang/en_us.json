@@ -89,6 +89,7 @@
 
 	"message.powergen": "Power generator generating %s per tick!",
 	"screen.powergen": "Power generator",
+	"screen.cable": "Cable",
 
 	"message.oregen": "Generate Ore when powered",
 

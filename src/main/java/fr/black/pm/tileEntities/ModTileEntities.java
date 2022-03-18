@@ -6,6 +6,7 @@ import fr.black.pm.item.ModCreativeModeTab;
 import fr.black.pm.item.ModItems;
 import fr.black.pm.tileEntities.custom.cable.Cable;
 import fr.black.pm.tileEntities.custom.cable.CableBlockEntity;
+import fr.black.pm.tileEntities.custom.cable.CableContainer;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlock;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlockEntity;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerContainer;
@@ -60,6 +61,8 @@ public class ModTileEntities {
             registerBlock("cable", () -> new Cable(BlockBehaviour.Properties.of(Material.METAL).strength(3f).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> CABLE_BLOCKENTITY =
             BLOCK_ENTITIES.register("cable", () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE.get()).build(null));
+    public static final RegistryObject<MenuType<CableContainer>> CABLE_CONTAINER =
+            CONTAINERS.register("cable", () -> IForgeMenuType.create((windowId, inv, data) -> new CableContainer(windowId,data.readBlockPos(), inv, inv.player)));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
