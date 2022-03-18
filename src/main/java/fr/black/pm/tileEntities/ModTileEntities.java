@@ -4,13 +4,13 @@ import fr.black.pm.block.ModBlocks;
 import fr.black.pm.PremierMod;
 import fr.black.pm.item.ModCreativeModeTab;
 import fr.black.pm.item.ModItems;
-import fr.black.pm.tileEntities.custom.Cable;
+import fr.black.pm.tileEntities.custom.cable.Cable;
+import fr.black.pm.tileEntities.custom.cable.CableBlockEntity;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlock;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerBlockEntity;
 import fr.black.pm.tileEntities.custom.lightningChanneler.LightningChannelerContainer;
 import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlock;
 import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorBlockEntity;
-import fr.black.pm.tileEntities.custom.oreGenerator.OreGeneratorConfig;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlock;
 import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import fr.black.pm.tileEntities.custom.powergen.PowergenContainer;
@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -59,7 +58,8 @@ public class ModTileEntities {
 
     public static final RegistryObject<Cable> CABLE =
             registerBlock("cable", () -> new Cable(BlockBehaviour.Properties.of(Material.METAL).strength(3f).noOcclusion().requiresCorrectToolForDrops()));
-
+    public static final RegistryObject<BlockEntityType<CableBlockEntity>> CABLE_BLOCKENTITY =
+            BLOCK_ENTITIES.register("cable", () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE.get()).build(null));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)

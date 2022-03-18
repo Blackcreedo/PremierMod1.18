@@ -2,7 +2,7 @@ package fr.black.pm.datagen;
 
 import fr.black.pm.PremierMod;
 import fr.black.pm.block.ModBlocks;
-import fr.black.pm.tileEntities.custom.Cable;
+import fr.black.pm.tileEntities.custom.cable.Cable;
 import fr.black.pm.block.custom.TestBlock;
 import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.core.Direction;
@@ -136,29 +136,6 @@ public class BlockStates extends BlockStateProvider {
         BooleanProperty[] connections = {cable.EAST_CONNECTION, cable.SOUTH_CONNECTION, cable.WEST_CONNECTION, cable.NORTH_CONNECTION};
         MultiPartBlockStateBuilder builder = getMultipartBuilder(cable);
 
-        builder.part().modelFile(side_vertical).rotationX(0).rotationY(0).addModel();
-        builder.part().modelFile(side_vertical).rotationX(0).rotationY(90).addModel();
-        builder.part().modelFile(side_vertical).rotationX(0).rotationY(180).addModel();
-        builder.part().modelFile(side_vertical).rotationX(0).rotationY(270).addModel();
-
-        builder.part().modelFile(side_vertical).rotationX(90).rotationY(0).addModel();
-        builder.part().modelFile(side_vertical).rotationX(90).rotationY(90).addModel();
-        builder.part().modelFile(side_vertical).rotationX(90).rotationY(180).addModel();
-        builder.part().modelFile(side_vertical).rotationX(90).rotationY(270).addModel();
-
-        builder.part().modelFile(side_vertical).rotationX(180).rotationY(0).addModel();
-        builder.part().modelFile(side_vertical).rotationX(180).rotationY(90).addModel();
-        builder.part().modelFile(side_vertical).rotationX(180).rotationY(180).addModel();
-        builder.part().modelFile(side_vertical).rotationX(180).rotationY(270).addModel();
-
-        builder.part().modelFile(side_vertical).rotationX(270).rotationY(0).addModel();
-        builder.part().modelFile(side_vertical).rotationX(2270).rotationY(90).addModel();
-        builder.part().modelFile(side_vertical).rotationX(270).rotationY(180).addModel();
-        builder.part().modelFile(side_vertical).rotationX(270).rotationY(270).addModel();
-
-
-
-        /*
         for (int i =0;i<4;i++){
             builder.part().modelFile(side_horizontal).rotationY(90*i).addModel().condition(connections[i],true);
             builder.part().modelFile(side_horizontal).rotationY(90*i).rotationX(90).addModel().condition(connections[i],true);
@@ -175,7 +152,7 @@ public class BlockStates extends BlockStateProvider {
         builder.part().modelFile(center).rotationX(270).addModel().condition(cable.CENTER, true);
         builder.part().modelFile(center).rotationY(90).addModel().condition(cable.CENTER, true);
         builder.part().modelFile(center).rotationY(90).rotationX(180).addModel().condition(cable.CENTER, true);
-        */
+
 
     }
 

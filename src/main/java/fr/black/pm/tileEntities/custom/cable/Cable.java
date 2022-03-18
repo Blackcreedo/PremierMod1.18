@@ -1,6 +1,7 @@
-package fr.black.pm.tileEntities.custom;
+package fr.black.pm.tileEntities.custom.cable;
 
 import fr.black.pm.tileEntities.ModTileEntities;
+import fr.black.pm.tileEntities.custom.powergen.PowergenBlockEntity;
 import fr.black.pm.util.VoxelShapeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -173,7 +176,21 @@ public class Cable extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new CableBlockEntity(pos, state);
+    }
+
+
+    @javax.annotation.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> entityType) {
+        if(!level.isClientSide()){
+            return (lvl, pos, state, t) -> {
+                if (t instanceof CableBlockEntity tile){
+                    tile.tickServer();
+                }
+            };
+        }
         return null;
     }
 }
