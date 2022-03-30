@@ -72,6 +72,7 @@
 	"block.pm.powergen": "Power Generator",
 	"block.pm.ore_generator": "Ore Generator",
 	"block.pm.cable": "Cable",
+	"block.pm.battery": "Battery",
 
 	
 	
@@ -90,6 +91,7 @@
 	"message.powergen": "Power generator generating %s per tick!",
 	"screen.powergen": "Power generator",
 	"screen.cable": "Cable",
+	"screen.battery": "Battery",
 
 	"message.oregen": "Generate Ore when powered",
 

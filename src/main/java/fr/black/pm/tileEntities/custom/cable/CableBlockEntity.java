@@ -22,8 +22,8 @@ public class CableBlockEntity extends BlockEntity {
     public static final int CABLE_RECEIVE = 100;
     public static final int CABLE_SEND = 200;
 
-    private final CustomEnergyStorage energyStorage = createEnergy();
-    private final LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
+    private final CustomEnergyStorage energy = createEnergyStorage();
+    private final LazyOptional<IEnergyStorage> energyHandler = LazyOptional.of(() -> energy);
 
 
     public CableBlockEntity(BlockPos pos, BlockState blockState) {
@@ -33,16 +33,16 @@ public class CableBlockEntity extends BlockEntity {
     @Override
     public void setRemoved() {
         super.setRemoved();
-        energy.invalidate();
+        energyHandler.invalidate();
     }
 
     public void tickServer(){
-        System.out.println(energyStorage.getEnergyStored());
+        //System.out.println(energyStorage.getEnergyStored());
         //sendOutPower();
     }
 
     private void sendOutPower(){
-        AtomicInteger capacity = new AtomicInteger(energyStorage.getEnergyStored());
+        AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
         //System.out.println(capacity.get());
         if(capacity.get() > 0){
             for(Direction direction : Direction.values()){
@@ -54,7 +54,7 @@ public class CableBlockEntity extends BlockEntity {
                         if (handler.canReceive()) {
                             int received = handler.receiveEnergy(Math.min(capacity.get(), CABLE_SEND), false);
                             capacity.addAndGet(-received);
-                            energyStorage.consumeEnergy(received);
+                            energy.consumeEnergy(received);
                             setChanged();
                             return capacity.get() > 0;
                         } else {
@@ -73,21 +73,23 @@ public class CableBlockEntity extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         if(tag.contains("Energy")){
-            energyStorage.deserializeNBT(tag.get("Energy"));
+            energy.deserializeNBT(tag.get("Energy"));
         }
         super.load(tag);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.put("Energy", energyStorage.serializeNBT());
+        tag.put("Energy", energy.serializeNBT());
     }
 
 
-    private CustomEnergyStorage createEnergy(){
+    private CustomEnergyStorage createEnergyStorage() {
         return new CustomEnergyStorage(CABLE_CAPACITY, CABLE_RECEIVE) {
             @Override
-            protected void onEnergyChange() {setChanged();}
+            protected void onEnergyChange() {
+                setChanged();
+            }
         };
     }
 
@@ -95,7 +97,7 @@ public class CableBlockEntity extends BlockEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
         if(cap == CapabilityEnergy.ENERGY){
-            return energy.cast();
+            return energyHandler.cast();
         }
         return super.getCapability(cap);
     }

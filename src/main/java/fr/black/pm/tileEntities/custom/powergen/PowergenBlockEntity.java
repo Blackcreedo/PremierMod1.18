@@ -81,6 +81,7 @@ public class PowergenBlockEntity extends BlockEntity {
                     //System.out.println("test");
                     boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                         if (handler.canReceive()) {
+                            System.out.println("test");
                             int received = handler.receiveEnergy(Math.min(capacity.get(), POWERGEN_SEND), false);
                             capacity.addAndGet(-received);
                             energyStorage.consumeEnergy(received);

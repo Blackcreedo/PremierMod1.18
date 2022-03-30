@@ -4,6 +4,9 @@ import fr.black.pm.block.ModBlocks;
 import fr.black.pm.PremierMod;
 import fr.black.pm.item.ModCreativeModeTab;
 import fr.black.pm.item.ModItems;
+import fr.black.pm.tileEntities.custom.battery.Battery;
+import fr.black.pm.tileEntities.custom.battery.BatteryBlockEntity;
+import fr.black.pm.tileEntities.custom.battery.BatteryContainer;
 import fr.black.pm.tileEntities.custom.cable.Cable;
 import fr.black.pm.tileEntities.custom.cable.CableBlockEntity;
 import fr.black.pm.tileEntities.custom.cable.CableContainer;
@@ -48,6 +51,12 @@ public class ModTileEntities {
     public static final RegistryObject<OreGeneratorBlock> ORE_GENERATOR = registerBlock("ore_generator", OreGeneratorBlock::new);
     public static final RegistryObject<BlockEntityType<OreGeneratorBlockEntity>> ORE_GENERATOR_BLOCKENTITY =
             BLOCK_ENTITIES.register("ore_generator", () -> BlockEntityType.Builder.of(OreGeneratorBlockEntity::new, ORE_GENERATOR.get()).build(null));
+
+    public static final RegistryObject<Battery> BATTERY = registerBlock("battery", Battery::new);
+    public static final RegistryObject<BlockEntityType<BatteryBlockEntity>> BATTERY_BLOCKENTITY =
+            BLOCK_ENTITIES.register("battery", () -> BlockEntityType.Builder.of(BatteryBlockEntity::new, BATTERY.get()).build(null));
+    public static final RegistryObject<MenuType<BatteryContainer>> BATTERY_CONTAINER =
+            CONTAINERS.register("battery", () -> IForgeMenuType.create((windowId, inv, data) -> new BatteryContainer(windowId,data.readBlockPos(), inv, inv.player)));
 
 
     public static final RegistryObject<Block> LIGHTNING_CHANNELER = registerBlock("lightning_channeler", LightningChannelerBlock::new);
