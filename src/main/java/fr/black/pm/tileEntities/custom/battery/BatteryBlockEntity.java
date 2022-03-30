@@ -5,23 +5,22 @@ import fr.black.pm.tileEntities.ModTileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BatteryBlockEntity extends BlockEntity {
 
     private static final int ENERGY_CAPACITY = 100000;
     private static final int ENERGY_RECEIVE = 500;
+    private static final int BATTERY_SEND = 500;
 
     private final CustomEnergyStorage energy = createEnergyStorage();
     private final LazyOptional<IEnergyStorage> energyHandler = LazyOptional.of(() -> energy);
@@ -46,7 +45,32 @@ public class BatteryBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
+        sendOutPower();
+    }
 
+    private void sendOutPower(){
+        AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
+        if(capacity.get() > 0){
+            for(Direction direction : Direction.values()){
+                BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+                if(blockEntity != null){
+                    boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
+                        if (handler.canReceive()) {
+                            int received = handler.receiveEnergy(Math.min(capacity.get(), BATTERY_SEND), false);
+                            capacity.addAndGet(-received);
+                            energy.consumeEnergy(received);
+                            setChanged();
+                            return capacity.get() > 0;
+                        } else {
+                            return true;
+                        }
+                    }).orElse(true);
+                    if(!doContinue){
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     @Override
