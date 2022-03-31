@@ -55,7 +55,20 @@ public class CableBlockEntity extends BlockEntity {
                 BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
                 if(blockEntity != null){
                     if(blockEntity instanceof CableBlockEntity){
-                        System.out.println("here");
+                        boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
+                            if (handler.canReceive() && energy.getEnergyStored()==ENERGY_CAPACITY) {
+                                int received = handler.receiveEnergy(Math.min(capacity.get(), CABLE_SEND), false);
+                                capacity.addAndGet(-received);
+                                energy.consumeEnergy(received);
+                                setChanged();
+                                return capacity.get() > 0;
+                            } else {
+                                return true;
+                            }
+                        }).orElse(true);
+                        if(!doContinue){
+                            return;
+                        }
                     }else{
                         boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                             if (handler.canReceive()) {
