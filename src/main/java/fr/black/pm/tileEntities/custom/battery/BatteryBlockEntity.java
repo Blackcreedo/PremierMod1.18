@@ -14,11 +14,13 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BatteryBlockEntity extends BlockEntity {
 
-    private static final int ENERGY_CAPACITY = 100000;
+    private static final int ENERGY_CAPACITY = 1000;
     private static final int ENERGY_RECEIVE = 500;
     private static final int BATTERY_SEND = 500;
 
@@ -29,8 +31,43 @@ public class BatteryBlockEntity extends BlockEntity {
         super(ModTileEntities.BATTERY_BLOCKENTITY.get(), pos, state);
     }
 
+    private int numberBatteryConnected(){
+        int count = 1;
+        LinkedList<BlockEntity> frontier = new LinkedList<BlockEntity>();
+        LinkedList<Direction> originDirections = new LinkedList<Direction>();
+        for(Direction direction : Direction.values()) {
+            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction)); //doesn't work "this.level" is null
+            //if(level.getBlockEntity(worldPosition.relative(direction)) instanceof BatteryBlockEntity){
+                //System.out.println("yes");
+                //frontier.add(level.getBlockEntity(worldPosition.relative(direction)));
+                //originDirections.add(direction);
+            //}
+        }/*
+        while(!frontier.isEmpty()){
+            count++;
+            System.out.println(count);
+            BlockEntity block = frontier.pop();
+            Direction origin = originDirections.pop();
+            for(Direction direction : Direction.values()) {
+                if(level.getBlockEntity(worldPosition.relative(direction)) instanceof BatteryBlockEntity && direction!=origin){
+                    System.out.println("yes");
+                    frontier.add(level.getBlockEntity(block.getBlockPos().relative(direction)));
+                    originDirections.add(direction);
+                }
+            }
+        }*/
+
+        return count;
+    }
+
+    private int energyCapacity(int capacity){
+        int totalCapacity = 0;
+        totalCapacity = numberBatteryConnected()*capacity;
+        return totalCapacity;
+    }
+
     private CustomEnergyStorage createEnergyStorage() {
-        return new CustomEnergyStorage(ENERGY_CAPACITY, ENERGY_RECEIVE) {
+        return new CustomEnergyStorage(energyCapacity(ENERGY_CAPACITY), ENERGY_RECEIVE) {
             @Override
             protected void onEnergyChange() {
                 setChanged();

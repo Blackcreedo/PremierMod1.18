@@ -54,6 +54,7 @@ public class CableBlockEntity extends BlockEntity {
             for(Direction direction : Direction.values()){
                 BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
                 if(blockEntity != null){
+                    // it's better to find another way of doing this
                     if(blockEntity instanceof CableBlockEntity){
                         boolean doContinue = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
                             if (handler.canReceive() && energy.getEnergyStored()==ENERGY_CAPACITY) {
