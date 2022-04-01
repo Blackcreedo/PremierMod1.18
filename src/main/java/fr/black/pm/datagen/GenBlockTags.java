@@ -37,7 +37,8 @@ public class GenBlockTags extends BlockTagsProvider {
                 .add(ModTileEntities.POWERGEN.get())
                 .add(ModTileEntities.ORE_GENERATOR.get())
                 .add(ModTileEntities.CABLE.get())
-                .add(ModTileEntities.BATTERY.get());
+                .add(ModTileEntities.BATTERY.get())
+                .add(ModBlocks.BATTERY_STORAGE.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.TITANIUM_ORE.get())
@@ -57,7 +58,8 @@ public class GenBlockTags extends BlockTagsProvider {
                 .add(ModTileEntities.POWERGEN.get())
                 .add(ModTileEntities.ORE_GENERATOR.get())
                 .add(ModTileEntities.CABLE.get())
-                .add(ModTileEntities.BATTERY.get());
+                .add(ModTileEntities.BATTERY.get())
+                .add(ModBlocks.BATTERY_STORAGE.get());
 
         tag(Tags.Blocks.ORES)
                 .add(ModBlocks.TITANIUM_ORE.get())

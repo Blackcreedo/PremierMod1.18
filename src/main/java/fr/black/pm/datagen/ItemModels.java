@@ -46,6 +46,7 @@ public class ItemModels extends ItemModelProvider {
         withExistingParent(ModTileEntities.ORE_GENERATOR.get().getRegistryName().getPath(), modLoc("block/ore_generator"));
         //withExistingParent(ModTileEntities.CABLE.get().getRegistryName().getPath(), modLoc("block/cable_inventory"));
         withExistingParent(ModTileEntities.BATTERY.get().getRegistryName().getPath(), modLoc("block/battery"));
+        withExistingParent(ModBlocks.BATTERY_STORAGE.get().getRegistryName().getPath(), modLoc("block/battery_storage"));
 
 
         singleTexture(ModItems.BAGUETTE.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/baguette"));

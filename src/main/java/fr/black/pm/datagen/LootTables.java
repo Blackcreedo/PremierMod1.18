@@ -57,6 +57,7 @@ public class LootTables extends BlockLoot {
         this.dropSelf(ModTileEntities.ORE_GENERATOR.get());
         this.dropSelf(ModTileEntities.CABLE.get());
         this.dropSelf(ModTileEntities.BATTERY.get());
+        this.dropSelf(ModBlocks.BATTERY_STORAGE.get());
 
 
         this.add(ModBlocks.TEST_BLOCK.get(), noDrop());

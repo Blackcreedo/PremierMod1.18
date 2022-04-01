@@ -139,12 +139,14 @@ public class ModBlocks{
 	public static final RegistryObject<Block> REDWOOD_SAPLING =
 			registerBlock("redwood_sapling", () -> new SaplingBlock(new RedwoodTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
+	public static final RegistryObject<Block> BATTERY_STORAGE =
+			registerBlock("battery_storage", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(8f).requiresCorrectToolForDrops()));
 
 
 
 
 
-	
+
 	private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
 	{
 		RegistryObject<T> toReturn = BLOCKS.register(name, block);
